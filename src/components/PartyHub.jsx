@@ -51,48 +51,49 @@ export default function PartyHub({
         </div>
 
         {/* Compact Vitals Badge Strip */}
-        <div className="compact-vitals-line">
+        <div className="compact-vitals-line" title="Aggregated Constituency & Party Vitals">
           {selectedParty === 'ALL' ? (
             <>
-              <span className="vital-chip">
-                Turnout: <strong>{summary.total_votes_2024.toLocaleString()}</strong> <small>(72.1%)</small>
-              </span>
-              <span className="vital-chip lead-inc">
-                INC Lead: <strong>+3,152</strong>
-              </span>
-              <span className="vital-chip seats hide-mobile">
-                INC: 111 | AAP: 81 | BJP: 25 | SAD: 5
-              </span>
-            </>
-          ) : selectedParty === 'AAP' ? (
-            <>
-              <span className="vital-chip aap-vital">
-                ’22 Votes: <strong>41,125</strong> (31.3%)
-              </span>
-              <span className="vital-chip aap-vital">
-                ’24 Votes: <strong>38,654</strong> (32.5%)
-              </span>
-              <span className="vital-chip loss">
-                Net Shift: <strong>-2,471</strong>
-              </span>
-              <span className="vital-chip hide-mobile">
-                Top: <strong>#{currentStats.top_booth.no}</strong> ({currentStats.top_booth.votes}v)
-              </span>
+              <div className="vital-item">
+                <span className="vital-lbl">Turnout</span>
+                <span className="vital-val">{summary.total_votes_2024.toLocaleString()}</span>
+                <span className="vital-sub">72.1%</span>
+              </div>
+              <span className="vital-divider" aria-hidden="true" />
+              <div className="vital-item lead-inc">
+                <span className="vital-lbl">INC Lead</span>
+                <span className="vital-val">+3,152</span>
+              </div>
+              <span className="vital-divider hide-mobile" aria-hidden="true" />
+              <div className="vital-item hide-mobile">
+                <span className="vital-lbl">Wins</span>
+                <span className="vital-val">INC: 111 · AAP: 81 · BJP: 25 · SAD: 5</span>
+              </div>
             </>
           ) : (
             <>
-              <span className="vital-chip inc-vital">
-                ’22 Votes: <strong>48,116</strong> (36.6%)
-              </span>
-              <span className="vital-chip inc-vital">
-                ’24 Votes: <strong>41,806</strong> (35.1%)
-              </span>
-              <span className="vital-chip loss">
-                Net Shift: <strong>-6,310</strong>
-              </span>
-              <span className="vital-chip hide-mobile">
-                Top: <strong>#{currentStats.top_booth.no}</strong> ({currentStats.top_booth.votes}v)
-              </span>
+              <div className="vital-item">
+                <span className="vital-lbl">’22 Votes</span>
+                <span className="vital-val">{selectedParty === 'AAP' ? '41,125' : '48,116'}</span>
+                <span className="vital-sub">({selectedParty === 'AAP' ? '31.3%' : '36.6%'})</span>
+              </div>
+              <span className="vital-divider" aria-hidden="true" />
+              <div className="vital-item">
+                <span className="vital-lbl">’24 Votes</span>
+                <span className="vital-val">{selectedParty === 'AAP' ? '38,654' : '41,806'}</span>
+                <span className="vital-sub">({selectedParty === 'AAP' ? '32.5%' : '35.1%'})</span>
+              </div>
+              <span className="vital-divider" aria-hidden="true" />
+              <div className="vital-item">
+                <span className="vital-lbl">Net Shift</span>
+                <span className="vital-val shift-loss">{selectedParty === 'AAP' ? '-2,471' : '-6,310'}</span>
+              </div>
+              <span className="vital-divider hide-mobile" aria-hidden="true" />
+              <div className="vital-item hide-mobile">
+                <span className="vital-lbl">Top Booth</span>
+                <span className="vital-val">#{currentStats.top_booth.no}</span>
+                <span className="vital-sub">({currentStats.top_booth.votes}v)</span>
+              </div>
             </>
           )}
         </div>

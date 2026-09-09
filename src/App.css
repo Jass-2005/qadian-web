@@ -807,12 +807,12 @@
 
 /* Registry Sub-Controls (Party Hub Pills + Vitals) */
 .registry-sub-controls {
-  padding: 12px 24px;
+  padding: 14px 24px 16px 24px;
   background: var(--bg-surface-elevated);
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
 }
 
 .party-pills-row {
@@ -823,100 +823,106 @@
   gap: 12px;
 }
 
+/* 1. Main Segment Switcher Tabs (Sleek Apple/Linear segmented pill) */
 .party-pill-tabs {
   display: inline-flex;
+  align-items: center;
   background: var(--bg-surface);
   padding: 4px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-  gap: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  gap: 3px;
 }
 
 .party-tab-pill {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   padding: 6px 14px;
   font-size: 0.8125rem;
   font-weight: 600;
   border-radius: var(--radius-full);
-  border: none;
+  border: 1px solid transparent;
   background: transparent;
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
 }
 
 .party-tab-pill:hover {
   color: var(--text-primary);
-  background: var(--bg-surface-elevated);
+  background: var(--bg-surface-hover);
 }
 
-/* Complete List Active: Neutral Dark/Indigo */
+/* Complete List Active: Neutral Dark/Slate */
 .party-tab-pill.active.all {
   background: #1e293b;
   color: #ffffff;
-  box-shadow: 0 2px 6px rgba(30, 41, 59, 0.25);
+  border-color: #1e293b;
+  box-shadow: 0 2px 8px rgba(30, 41, 59, 0.2);
 }
 
 [data-theme="dark"] .party-tab-pill.active.all {
   background: #334155;
+  border-color: #334155;
   color: #f8fafc;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* AAP Active: AAP Vibrant Blue with Yellow Badge */
+/* AAP Active: Sleek gradient with gold badge */
 .party-tab-pill.active.aap {
-  background: #0284c7;
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
   color: #ffffff;
-  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.35);
+  border-color: #0284c7;
+  box-shadow: 0 2px 10px rgba(2, 132, 199, 0.3);
 }
 
-[data-theme="dark"] .party-tab-pill.active.aap {
-  background: #0284c7;
-  color: #ffffff;
-}
-
-/* INC Active: INC Saffron Orange */
+/* INC Active: Sleek saffron gradient with frosted badge */
 .party-tab-pill.active.inc {
-  background: #ea580c;
+  background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
   color: #ffffff;
-  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.35);
-}
-
-[data-theme="dark"] .party-tab-pill.active.inc {
-  background: #ea580c;
-  color: #ffffff;
+  border-color: #ea580c;
+  box-shadow: 0 2px 10px rgba(234, 88, 12, 0.3);
 }
 
 /* Color Indicators */
 .party-color-indicator {
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
 }
 
 .aap-indicator {
   background: #0284c7;
-  border: 1.5px solid #facc15;
+  box-shadow: 0 0 0 2px #facc15;
 }
 
 .inc-indicator {
   background: #ea580c;
-  border: 1.5px solid #ffffff;
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.8);
 }
 
 .party-tab-text {
   font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .tab-pill-count {
   font-size: 0.6875rem;
-  padding: 1px 7px;
+  padding: 1.5px 7px;
   border-radius: var(--radius-full);
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--text-muted);
   font-weight: 700;
+  transition: all 0.18s ease;
+}
+
+[data-theme="dark"] .tab-pill-count {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
 }
 
 .party-tab-pill.active.all .tab-pill-count {
@@ -926,17 +932,17 @@
 
 /* AAP Badge: Vibrant Yellow Accent */
 .tab-pill-count.aap-badge {
-  background: #fef08a;
-  color: #713f12;
+  background: #fef9c3;
+  color: #854d0e;
 }
 
 .party-tab-pill.active.aap .tab-pill-count.aap-badge {
   background: #facc15;
   color: #78350f;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
-/* INC Badge: Crisp White / Saffron Accent */
+/* INC Badge: Soft Orange Accent */
 .tab-pill-count.inc-badge {
   background: #ffedd5;
   color: #9a3412;
@@ -947,76 +953,82 @@
   color: #ffffff;
 }
 
+/* 2. Compact Vitals Line (Unified Micro-Metric Strip) */
 .compact-vitals-line {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.vital-chip {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-  padding: 4px 10px;
-  border-radius: var(--radius-md);
+  gap: 12px;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  padding: 5px 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  font-size: 0.75rem;
+}
+
+.vital-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.vital-lbl {
+  color: var(--text-muted);
   font-weight: 500;
 }
 
-.vital-chip.lead-inc {
+.vital-val {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.vital-sub {
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.71875rem;
+}
+
+.vital-divider {
+  width: 1px;
+  height: 12px;
+  background: var(--border-medium);
+  flex-shrink: 0;
+}
+
+.shift-loss {
+  color: #ef4444;
+  font-weight: 700;
+}
+
+[data-theme="dark"] .shift-loss {
+  color: #f87171;
+}
+
+.vital-item.lead-inc .vital-val {
   color: var(--color-inc);
-  font-weight: 600;
 }
 
-.vital-chip.aap-vital {
-  border-color: rgba(2, 132, 199, 0.3);
-  color: #0284c7;
-  background: #eff6ff;
-}
-
-[data-theme="dark"] .vital-chip.aap-vital {
-  background: rgba(2, 132, 199, 0.15);
-  color: #38bdf8;
-}
-
-.vital-chip.inc-vital {
-  border-color: rgba(234, 88, 12, 0.3);
-  color: #ea580c;
-  background: #fff7ed;
-}
-
-[data-theme="dark"] .vital-chip.inc-vital {
-  background: rgba(234, 88, 12, 0.15);
-  color: #fb923c;
-}
-
-.vital-chip.gain {
-  color: var(--status-won);
-}
-
-.vital-chip.loss {
-  color: var(--status-lost);
-}
-
-/* Enhanced Category Filter Pills */
+/* 3. Enhanced Category Filter Pills */
 .category-filter-pills {
   display: flex;
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  padding: 2px 0;
+  padding: 4px 0 2px 0;
 }
 
 .filter-pill-header {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
+  padding: 4px 6px 4px 0;
   color: var(--text-muted);
 }
 
 .filter-header-icon {
-  opacity: 0.7;
+  color: var(--text-muted);
+  opacity: 0.8;
 }
 
 .filter-group-label {
@@ -1029,15 +1041,15 @@
 .cat-pill-group {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
 .cat-pill-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 13px;
+  gap: 7px;
+  padding: 6px 14px;
   font-size: 0.78125rem;
   font-weight: 600;
   border-radius: var(--radius-full);
@@ -1045,8 +1057,9 @@
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all 0.16s ease;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  user-select: none;
 }
 
 .cat-pill-btn:hover {
@@ -1054,27 +1067,49 @@
   border-color: var(--border-medium);
   color: var(--text-primary);
   transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
+
+.cat-pill-btn svg {
+  flex-shrink: 0;
+}
+
+/* Category semantic icon colors */
+.cat-pill-btn.won svg { color: #10b981; }
+.cat-pill-btn.gained svg { color: #059669; }
+.cat-pill-btn.lost svg { color: #ef4444; }
+.cat-pill-btn.weak svg { color: #f59e0b; }
+.cat-pill-btn.deficit svg { color: #881337; }
 
 .cat-pill-num {
   font-size: 0.6875rem;
   font-weight: 700;
-  padding: 1px 6px;
+  padding: 1.5px 7px;
   border-radius: var(--radius-full);
-  background: rgba(0, 0, 0, 0.08);
-  margin-left: 2px;
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--text-muted);
+  transition: all 0.18s ease;
 }
 
 [data-theme="dark"] .cat-pill-num {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
 }
 
-/* Filter Button Active States */
+/* Filter Active States */
+.cat-pill-btn.active {
+  transform: translateY(-1px);
+}
+
+.cat-pill-btn.active svg {
+  color: currentColor;
+}
+
 .cat-pill-btn.active.default-active {
   background: #1e293b;
   color: #ffffff;
   border-color: #1e293b;
-  box-shadow: 0 2px 6px rgba(30, 41, 59, 0.25);
+  box-shadow: 0 2px 8px rgba(30, 41, 59, 0.2);
 }
 
 [data-theme="dark"] .cat-pill-btn.active.default-active {
@@ -1083,12 +1118,17 @@
   color: #ffffff;
 }
 
+.cat-pill-btn.active.default-active .cat-pill-num {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
 /* AAP Active Filter: AAP Vibrant Blue + Yellow Count */
 .cat-pill-btn.active.aap-active {
-  background: #0284c7;
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
   color: #ffffff;
   border-color: #0284c7;
-  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.35);
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.28);
 }
 
 .cat-pill-btn.active.aap-active .cat-pill-num {
@@ -1098,25 +1138,25 @@
 
 /* INC Active Filter: INC Saffron Orange */
 .cat-pill-btn.active.inc-active {
-  background: #ea580c;
+  background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
   color: #ffffff;
   border-color: #ea580c;
-  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.35);
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.28);
 }
 
 .cat-pill-btn.active.inc-active .cat-pill-num {
-  background: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.24);
   color: #ffffff;
 }
 
 .cat-pill-btn.active.bjp-active {
-  background: #c2410c;
+  background: linear-gradient(135deg, #ea580c 0%, #b45309 100%);
   color: #ffffff;
-  border-color: #c2410c;
+  border-color: #ea580c;
 }
 
 .cat-pill-btn.active.sad-active {
-  background: #1d4ed8;
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
   color: #ffffff;
   border-color: #1d4ed8;
 }
@@ -1133,12 +1173,12 @@
   color: #ffffff;
 }
 
-/* Toolbar inside Registry Card */
+/* 4. Toolbar inside Registry Card */
 .registry-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 24px;
+  padding: 12px 24px;
   border-bottom: 1px solid var(--border-subtle);
   background: var(--bg-surface);
   gap: 12px;
@@ -1148,33 +1188,38 @@
 .toolbar-search-wrap {
   display: flex;
   align-items: center;
-  gap: 8px;
   flex: 1;
   min-width: 240px;
-  max-width: 480px;
+  max-width: 520px;
   position: relative;
 }
 
 .toolbar-search-wrap svg {
   position: absolute;
-  left: 10px;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
   color: var(--text-muted);
+  pointer-events: none;
 }
 
 .toolbar-search-input {
   width: 100%;
-  padding: 7px 12px 7px 32px;
+  height: 38px;
+  padding: 0 14px 0 36px;
   font-size: 0.8125rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-subtle);
   background: var(--bg-surface-elevated);
   color: var(--text-primary);
   outline: none;
-  transition: border-color 0.15s ease;
+  transition: all 0.18s ease;
 }
 
 .toolbar-search-input:focus {
-  border-color: #0284c7;
+  border-color: var(--border-focus);
+  background: var(--bg-surface);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 .toolbar-controls {
@@ -1187,7 +1232,8 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 7px 14px;
+  height: 38px;
+  padding: 0 14px;
   font-size: 0.8125rem;
   font-weight: 600;
   border-radius: var(--radius-md);
@@ -1195,7 +1241,13 @@
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.18s ease;
+}
+
+.btn-toolbar-pdf:hover {
+  background: var(--bg-surface-hover);
+  border-color: var(--border-medium);
+  color: var(--text-primary);
 }
 
 .btn-toolbar-pdf:hover {
@@ -2435,19 +2487,18 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
     flex-wrap: nowrap;
-    padding-bottom: 2px;
-    gap: 6px;
+    padding: 6px 14px;
+    gap: 10px;
   }
 
   .compact-vitals-line::-webkit-scrollbar {
     display: none;
   }
 
-  .vital-chip {
+  .vital-item {
     flex-shrink: 0;
     white-space: nowrap;
     font-size: 0.6875rem;
-    padding: 4px 8px;
   }
 
   .category-filter-pills {
