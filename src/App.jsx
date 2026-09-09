@@ -293,8 +293,8 @@ export default function App() {
                 className="pill-action-btn green"
                 title="Download Master Analysis Spreadsheet (Excel .xlsx with AAP/INC Colors)"
               >
-                <FileSpreadsheet size={15} />
-                <span>Master Excel</span>
+                <span className="pill-btn-icon"><FileSpreadsheet size={14} /></span>
+                <span className="pill-btn-label">Master Excel</span>
               </a>
 
               <a 
@@ -303,8 +303,8 @@ export default function App() {
                 className="pill-action-btn purple"
                 title="Download Complete 223-Booth Master Plan in English (PDF with Watermark)"
               >
-                <ClipboardList size={15} />
-                <span>Master Plan (English PDF)</span>
+                <span className="pill-btn-icon"><ClipboardList size={14} /></span>
+                <span className="pill-btn-label">Master Plan (English PDF)</span>
               </a>
 
               <a 
@@ -313,8 +313,8 @@ export default function App() {
                 className="pill-action-btn amber"
                 title="Download 223 Boothwise Detailed Field Operations Plan in Punjabi (PDF with Watermark)"
               >
-                <ClipboardList size={15} />
-                <span>223 ਬੂਥ ਮਾਸਟਰ ਪਲਾਨ (ਪੰਜਾਬੀ PDF)</span>
+                <span className="pill-btn-icon"><ClipboardList size={14} /></span>
+                <span className="pill-btn-label">223 ਬੂਥ ਮਾਸਟਰ ਪਲਾਨ (ਪੰਜਾਬੀ PDF)</span>
               </a>
 
               <button 
@@ -322,8 +322,8 @@ export default function App() {
                 className="pill-action-btn outline"
                 title="Export Current View as PDF with Dsidein Watermark"
               >
-                <Printer size={15} />
-                <span>Export PDF</span>
+                <span className="pill-btn-icon"><Printer size={14} /></span>
+                <span className="pill-btn-label">Export PDF</span>
               </button>
             </div>
           </section>
