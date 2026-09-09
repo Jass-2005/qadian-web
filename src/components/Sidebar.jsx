@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, MapPin, Users, FileSpreadsheet, ExternalLink, X } from 'lucide-react';
+import { LayoutDashboard, MapPin, Users, FileSpreadsheet, ExternalLink, X, ClipboardList } from 'lucide-react';
 
 export default function Sidebar({ activeTab, setActiveTab, isOpen, onClose }) {
   const handleNavClick = (tab) => {
@@ -83,6 +83,17 @@ export default function Sidebar({ activeTab, setActiveTab, isOpen, onClose }) {
           >
             <FileSpreadsheet size={20} />
             <span className="sidebar-label hide-desktop">Master Excel</span>
+          </a>
+
+          <a 
+            href="./Qadian_Detailed_223_Boothwise_Masterplan.docx" 
+            download="Qadian_Detailed_223_Boothwise_Masterplan.docx"
+            className="sidebar-nav-btn"
+            title="Download Detailed 223-Booth Master Plan (.docx)"
+            onClick={() => { if (onClose) onClose(); }}
+          >
+            <ClipboardList size={20} />
+            <span className="sidebar-label hide-desktop">223 Master Plan</span>
           </a>
 
           <a 

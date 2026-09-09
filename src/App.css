@@ -420,6 +420,18 @@
   transform: translateY(-1px);
 }
 
+.pill-action-btn.purple {
+  background: #7c3aed;
+  color: #ffffff;
+  border: 1px solid #6d28d9;
+  box-shadow: 0 1px 3px rgba(124, 58, 237, 0.2);
+}
+
+.pill-action-btn.purple:hover {
+  background: #6d28d9;
+  transform: translateY(-1px);
+}
+
 .pill-action-btn.outline {
   background: var(--bg-surface);
   color: var(--text-primary);
@@ -1700,6 +1712,255 @@
   border-color: var(--border-medium);
 }
 
+/* =========================================================
+   BOOTH MODAL - 223-BOOTH STRATEGIC MASTER PLAN SECTION
+========================================================= */
+.modal-masterplan-box {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.masterplan-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 10px;
+}
+
+.masterplan-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.masterplan-icon-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #eff6ff;
+  color: #0284c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-theme="dark"] .masterplan-icon-badge {
+  background: rgba(2, 132, 199, 0.15);
+  color: #38bdf8;
+}
+
+.masterplan-title {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.masterplan-sub {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  margin: 2px 0 0 0;
+}
+
+.masterplan-cat-badge {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+}
+
+.masterplan-cat-badge.aap-won {
+  background: #eff6ff;
+  color: #0284c7;
+  border: 1px solid #bfdbfe;
+}
+
+.masterplan-cat-badge.aap-gain {
+  background: #eff6ff;
+  color: #0284c7;
+  border: 1px solid #93c5fd;
+}
+
+.masterplan-cat-badge.aap-lost {
+  background: #fff1f2;
+  color: #e11d48;
+  border: 1px solid #fecdd3;
+}
+
+.masterplan-cat-badge.inc-won {
+  background: #fff7ed;
+  color: #ea580c;
+  border: 1px solid #fed7aa;
+}
+
+.masterplan-cat-badge.neutral {
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+.masterplan-metrics-strip {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 12px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+}
+
+.mp-metric-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+}
+
+.mp-metric-label {
+  color: var(--text-muted);
+}
+
+.mp-metric-val {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.mp-metric-val.gain {
+  color: #10b981;
+}
+
+.mp-metric-val.loss {
+  color: #f43f5e;
+}
+
+.masterplan-status-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+
+.mp-card-label {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mp-status-text {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.masterplan-actions-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+
+.mp-steps-count {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  font-weight: normal;
+}
+
+.mp-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.mp-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.78125rem;
+  line-height: 1.4;
+  color: var(--text-primary);
+  padding: 4px 6px;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.1s ease;
+}
+
+.mp-step-item:hover {
+  background: var(--bg-surface-elevated);
+}
+
+.mp-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+[data-theme="dark"] .mp-step-num {
+  background: #334155;
+  color: #e2e8f0;
+}
+
+.mp-step-text {
+  flex: 1;
+}
+
+.masterplan-download-row {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 4px;
+}
+
+.btn-download-masterplan {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  background: #7c3aed;
+  color: #ffffff;
+  border: 1px solid #6d28d9;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  width: 100%;
+}
+
+.btn-download-masterplan:hover {
+  background: #6d28d9;
+  transform: translateY(-1px);
+}
+
 /* Hidden on Screen, Shown on Print */
 .print-report-header,
 .print-dossier-banner,
@@ -2467,6 +2728,21 @@
   body.printing-single-booth .year-card {
     border: 1px solid #cbd5e1 !important;
     background: #f8fafc !important;
+    color: #0f172a !important;
+  }
+
+  body.printing-single-booth .modal-masterplan-box {
+    border: 1px solid #cbd5e1 !important;
+    background: #f8fafc !important;
+    color: #0f172a !important;
+    page-break-inside: avoid !important;
+    margin-top: 14px !important;
+  }
+
+  body.printing-single-booth .masterplan-status-card,
+  body.printing-single-booth .masterplan-actions-card {
+    border: 1px solid #cbd5e1 !important;
+    background: #ffffff !important;
     color: #0f172a !important;
   }
 }

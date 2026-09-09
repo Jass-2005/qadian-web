@@ -22,7 +22,8 @@ import {
   BarChart3,
   ExternalLink,
   ShieldAlert,
-  Database
+  Database,
+  ClipboardList
 } from 'lucide-react';
 
 export default function App() {
@@ -305,6 +306,16 @@ export default function App() {
               >
                 <FileText size={15} />
                 <span>Strategy Report</span>
+              </a>
+
+              <a 
+                href="./Qadian_Detailed_223_Boothwise_Masterplan.docx" 
+                download="Qadian_Detailed_223_Boothwise_Masterplan.docx"
+                className="pill-action-btn purple"
+                title="Download Complete 223-Booth Master Plan Document (Word .docx)"
+              >
+                <ClipboardList size={15} />
+                <span>Boothwise Master Plan</span>
               </a>
 
               <button 

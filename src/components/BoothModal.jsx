@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, TrendingUp, TrendingDown, Award, Users, AlertCircle, Printer } from 'lucide-react';
+import { X, TrendingUp, TrendingDown, Award, Users, AlertCircle, Printer, Target, Download, FileText } from 'lucide-react';
 
 export default function BoothModal({ booth, onClose }) {
   if (!booth) return null;
@@ -237,6 +237,87 @@ export default function BoothModal({ booth, onClose }) {
             </div>
           </div>
         </div>
+
+        {/* Strategic Booth Master Plan & Field Directive */}
+        {booth.masterplan && (
+          <div className="modal-masterplan-box">
+            <div className="masterplan-header">
+              <div className="masterplan-title-wrap">
+                <div className="masterplan-icon-badge">
+                  <Target size={16} />
+                </div>
+                <div>
+                  <h3 className="masterplan-title">223-Booth Strategic Master Plan</h3>
+                  <p className="masterplan-sub">Field Ground Directive & 90-Day Action Roadmap</p>
+                </div>
+              </div>
+
+              <span className={`masterplan-cat-badge ${
+                booth.masterplan.category_type.includes('AAP Retained') ? 'aap-won' :
+                booth.masterplan.category_type.includes('Gain') ? 'aap-gain' :
+                booth.masterplan.category_type.includes('Reversal') ? 'aap-lost' :
+                booth.masterplan.category_type.includes('INC') ? 'inc-won' : 'neutral'
+              }`}>
+                {booth.masterplan.category_type}
+              </span>
+            </div>
+
+            {/* Quick Metrics Strip */}
+            <div className="masterplan-metrics-strip">
+              <div className="mp-metric-item">
+                <span className="mp-metric-label">AAP Swing:</span>
+                <strong className={`mp-metric-val ${booth.masterplan.aap_swing && booth.masterplan.aap_swing.startsWith('+') ? 'gain' : 'loss'}`}>
+                  {booth.masterplan.aap_swing}
+                </strong>
+              </div>
+              <div className="mp-metric-item">
+                <span className="mp-metric-label">Turnout Movement:</span>
+                <strong className="mp-metric-val">
+                  {booth.masterplan.turnout_delta}
+                </strong>
+              </div>
+              <div className="mp-metric-item">
+                <span className="mp-metric-label">Cycle Directive:</span>
+                <strong className="mp-metric-val">90-Day Field Ops</strong>
+              </div>
+            </div>
+
+            {/* Field Status Diagnosis */}
+            <div className="masterplan-status-card">
+              <div className="mp-card-label">Field Diagnosis & Ground Reality</div>
+              <p className="mp-status-text">{booth.masterplan.detailed_status}</p>
+            </div>
+
+            {/* Action Roadmap */}
+            <div className="masterplan-actions-card">
+              <div className="mp-card-label">
+                <span>Recommended Step-by-Step Field Actions</span>
+                <span className="mp-steps-count">({booth.masterplan.action_steps.length} Steps)</span>
+              </div>
+              <div className="mp-steps-list">
+                {booth.masterplan.action_steps.map((step, idx) => (
+                  <div key={idx} className="mp-step-item">
+                    <span className="mp-step-num">{idx + 1}</span>
+                    <span className="mp-step-text">{step}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Download Complete Master Plan Docx */}
+            <div className="masterplan-download-row no-print">
+              <a 
+                href="./Qadian_Detailed_223_Boothwise_Masterplan.docx" 
+                download="Qadian_Detailed_223_Boothwise_Masterplan.docx"
+                className="btn-download-masterplan"
+                title="Download the Complete 223-Booth Master Plan Document (Word .docx)"
+              >
+                <Download size={14} />
+                <span>Download Complete 223-Booth Master Plan (.docx)</span>
+              </a>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

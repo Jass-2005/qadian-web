@@ -65,6 +65,16 @@ export default function Header({
             <span>Report (.docx)</span>
           </a>
 
+          <a 
+            href="./Qadian_Detailed_223_Boothwise_Masterplan.docx" 
+            download="Qadian_Detailed_223_Boothwise_Masterplan.docx"
+            className="btn-dsidein-action hide-mobile"
+            title="Download Detailed 223-Booth Master Plan Document (Word .docx)"
+          >
+            <FileText size={15} />
+            <span>223 Master Plan (.docx)</span>
+          </a>
+
           {/* Theme Toggle */}
           <button 
             className="btn-icon" 
