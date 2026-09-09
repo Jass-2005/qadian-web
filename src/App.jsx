@@ -33,6 +33,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('BOOTH_ASC');
   const [selectedBooth, setSelectedBooth] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Apply theme
   useEffect(() => {
@@ -41,6 +42,20 @@ export default function App() {
 
   const toggleTheme = () => {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    setMobileMenuOpen(false);
+    if (tab === 'DASHBOARD') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (tab === 'PARTY_HUB') {
+      const el = document.querySelector('.dsidein-registry-card');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    } else if (tab === 'BOOTHS') {
+      const el = document.querySelector('.booth-container');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const { summary, booths } = electionData;
@@ -211,8 +226,13 @@ export default function App() {
 
   return (
     <div className="dsidein-app-root">
-      {/* 1. Left Slim Navigation Rail */}
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      {/* 1. Left Slim Navigation Rail / Mobile Drawer */}
+      <Sidebar 
+        activeTab={activeTab} 
+        setActiveTab={handleTabChange} 
+        isOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+      />
 
       {/* 2. Main Content Frame */}
       <div className="dsidein-content-frame">
@@ -220,7 +240,7 @@ export default function App() {
         <Header 
           theme={theme} 
           toggleTheme={toggleTheme} 
-          onMenuClick={() => {}} 
+          onMenuClick={() => setMobileMenuOpen(prev => !prev)} 
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
         />

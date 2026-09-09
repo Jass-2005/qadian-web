@@ -52,19 +52,19 @@ export default function BoothModal({ booth, onClose }) {
 
         {/* Modal Header */}
         <div className="modal-header">
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div className="modal-header-left">
+            <div className="modal-badges-row" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span className="brand-badge">Booth #{booth.booth_no}</span>
               <span className={`status-badge ${comp.is_flip ? 'flipped' : 'retained'}`}>
                 {comp.status_label}
               </span>
             </div>
-            <h2 style={{ fontSize: '1.4rem', marginTop: '6px' }}>{booth.village_english}</h2>
-            <p className="punjabi-text" style={{ fontSize: '1.05rem', color: 'var(--text-secondary)' }}>
+            <h2 className="modal-village-title">{booth.village_english}</h2>
+            <p className="modal-village-sub punjabi-text">
               {booth.village_punjabi}
             </p>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div className="modal-header-right">
             <button 
               className="btn-print-modal no-print" 
               onClick={handlePrintBooth}
