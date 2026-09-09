@@ -1,0 +1,191 @@
+/* =========================================================
+   QADIAN ELECTION ANALYTICS - SEPARATE LIGHT & DARK THEMES
+   Dedicated High-Contrast, Minimalist Color Palettes
+========================================================= */
+
+:root {
+  /* DARK THEME (Default) - Midnight Obsidian Palette */
+  --bg-primary: #0b0f17;
+  --bg-surface: #121824;
+  --bg-surface-elevated: #1a2334;
+  --bg-surface-hover: #222d42;
+  --border-subtle: #1f2a3e;
+  --border-medium: #2f3e5b;
+  --border-focus: #3b82f6;
+
+  /* Text - Crisp Light */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  /* Party Colors in Dark Mode */
+  --color-aap: #fbbf24;
+  --color-aap-soft: rgba(251, 191, 36, 0.12);
+  --color-aap-border: rgba(251, 191, 36, 0.35);
+
+  --color-inc: #34d399;
+  --color-inc-soft: rgba(52, 211, 153, 0.12);
+  --color-inc-border: rgba(52, 211, 153, 0.35);
+
+  --color-bjp: #fb923c;
+  --color-bjp-soft: rgba(251, 146, 60, 0.12);
+  --color-bjp-border: rgba(251, 146, 60, 0.35);
+
+  --color-sad: #60a5fa;
+  --color-sad-soft: rgba(96, 165, 250, 0.12);
+  --color-sad-border: rgba(96, 165, 250, 0.35);
+
+  /* Status Colors in Dark Mode */
+  --status-won: #34d399;
+  --status-won-bg: rgba(52, 211, 153, 0.14);
+  --status-won-border: rgba(52, 211, 153, 0.35);
+
+  --status-gained: #60a5fa;
+  --status-gained-bg: rgba(96, 165, 250, 0.14);
+  --status-gained-border: rgba(96, 165, 250, 0.35);
+
+  --status-lost: #f87171;
+  --status-lost-bg: rgba(248, 113, 113, 0.14);
+  --status-lost-border: rgba(248, 113, 113, 0.35);
+
+  --status-weak: #fbbf24;
+  --status-weak-bg: rgba(251, 191, 36, 0.14);
+  --status-weak-border: rgba(251, 191, 36, 0.35);
+
+  --status-neutral: #94a3b8;
+  --status-neutral-bg: rgba(148, 163, 184, 0.12);
+  --status-neutral-border: rgba(148, 163, 184, 0.3);
+
+  /* Dsidein Brand Colors */
+  --brand-dsidein: #002b49;
+  --brand-teal: #00a896;
+  --brand-cyan: #0ea5e9;
+  --brand-blue: #2563eb;
+  --brand-green: #059669;
+
+  /* 8px Spacing Grid */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+
+  /* Border Radii */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* Fonts */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-punjabi: 'Noto Sans Gurmukhi', sans-serif;
+}
+
+/* =========================================================
+   LIGHT THEME - Clean Porcelain & Editorial Newspaper Palette
+========================================================= */
+[data-theme="light"] {
+  --bg-primary: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #f1f5f9;
+  --bg-surface-hover: #e2e8f0;
+  --border-subtle: #e2e8f0;
+  --border-medium: #cbd5e1;
+  --border-focus: #2563eb;
+
+  /* Text - Deep Slate Contrast */
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+
+  /* Party Colors in Light Mode - High Contrast Legibility */
+  --color-aap: #b45309;       /* Deep warm gold */
+  --color-aap-soft: #fef3c7;
+  --color-aap-border: #fcd34d;
+
+  --color-inc: #047857;       /* Deep rich emerald */
+  --color-inc-soft: #d1fae5;
+  --color-inc-border: #6ee7b7;
+
+  --color-bjp: #c2410c;       /* Saffron dark orange */
+  --color-bjp-soft: #ffedd5;
+  --color-bjp-border: #fdba74;
+
+  --color-sad: #1d4ed8;       /* Deep royal blue */
+  --color-sad-soft: #dbeafe;
+  --color-sad-border: #93c5fd;
+
+  /* Status Colors in Light Mode */
+  --status-won: #065f46;
+  --status-won-bg: #d1fae5;
+  --status-won-border: #a7f3d0;
+
+  --status-gained: #1e40af;
+  --status-gained-bg: #dbeafe;
+  --status-gained-border: #bfdbfe;
+
+  --status-lost: #9f1239;
+  --status-lost-bg: #ffe4e6;
+  --status-lost-border: #fecdd3;
+
+  --status-weak: #92400e;
+  --status-weak-bg: #fef3c7;
+  --status-weak-border: #fde68a;
+
+  --status-neutral: #475569;
+  --status-neutral-bg: #f1f5f9;
+  --status-neutral-border: #e2e8f0;
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-2);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--space-3);
+  }
+}
+
+.punjabi-font {
+  font-family: var(--font-punjabi);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
