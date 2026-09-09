@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sun, Moon, Menu, ChevronDown, FileSpreadsheet, FileText, ExternalLink, Search } from 'lucide-react';
+import { Sun, Moon, Menu, ChevronDown, Search } from 'lucide-react';
 
 export default function Header({ 
   theme, 
@@ -43,47 +43,8 @@ export default function Header({
           </div>
         </div>
 
-        {/* Right: Actions, Theme & Dsidein User Profile */}
+        {/* Right: Theme & Dsidein User Profile */}
         <div className="header-right">
-          <a 
-            href="./Qadian_Master_Booth_Analysis_AAP_INC.xlsx" 
-            download="Qadian_Master_Booth_Analysis_AAP_INC.xlsx"
-            className="btn-dsidein-action hide-mobile"
-            title="Download Master Analysis Spreadsheet (Excel .xlsx with AAP/INC Colors)"
-          >
-            <FileSpreadsheet size={15} />
-            <span>Master Excel</span>
-          </a>
-
-          <a 
-            href="./Qadian_Master_Booth_Analysis_AAP.docx" 
-            download="Qadian_Master_Booth_Analysis_AAP.docx"
-            className="btn-dsidein-action hide-mobile"
-            title="Download Strategic Analysis Report (Word .docx)"
-          >
-            <FileText size={15} />
-            <span>Report (.docx)</span>
-          </a>
-
-          <a 
-            href="./Qadian_Detailed_223_Boothwise_Masterplan.pdf" 
-            download="Qadian_Detailed_223_Boothwise_Masterplan.pdf"
-            className="btn-dsidein-action hide-mobile"
-            title="Download Detailed 223-Booth Master Plan Document in English (PDF with Watermark)"
-          >
-            <FileText size={15} />
-            <span>Master Plan (EN PDF)</span>
-          </a>
-
-          <a 
-            href="./Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.pdf" 
-            download="Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.pdf"
-            className="btn-dsidein-action hide-mobile"
-            title="Download 223-Booth Detailed Field Operations Plan in Punjabi (PDF with Watermark)"
-          >
-            <FileText size={15} />
-            <span>223 ਬੂਥ ਪਲਾਨ (PA PDF)</span>
-          </a>
 
           {/* Theme Toggle */}
           <button 

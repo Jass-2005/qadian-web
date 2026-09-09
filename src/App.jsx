@@ -14,7 +14,6 @@ import {
   MapPin, 
   Users, 
   FileSpreadsheet, 
-  FileText, 
   Compass, 
   Layers, 
   Activity, 
@@ -296,16 +295,6 @@ export default function App() {
               >
                 <FileSpreadsheet size={15} />
                 <span>Master Excel</span>
-              </a>
-
-              <a 
-                href="./Qadian_Master_Booth_Analysis_AAP.docx" 
-                download="Qadian_Master_Booth_Analysis_AAP.docx"
-                className="pill-action-btn blue"
-                title="Download Strategic Analysis Report (Word .docx)"
-              >
-                <FileText size={15} />
-                <span>Strategy Report</span>
               </a>
 
               <a 
