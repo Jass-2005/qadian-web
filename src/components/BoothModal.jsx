@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, TrendingUp, TrendingDown, Award, Users, AlertCircle, Printer, Target, Download, FileText } from 'lucide-react';
+import { X, Printer, Target, Download, FileText } from 'lucide-react';
 
 export default function BoothModal({ booth, onClose }) {
   const [mpLang, setMpLang] = useState('PA');
@@ -53,55 +53,35 @@ export default function BoothModal({ booth, onClose }) {
 
         {/* Modal Header */}
         <div className="modal-header">
-          <div className="modal-header-left">
-            <span className="booth-avatar-badge large">#{booth.booth_no}</span>
-            <div>
-              <h2 className="modal-title">{booth.village_english}</h2>
-              <p className="modal-subtitle punjabi-font">{booth.village_punjabi}</p>
+          <div>
+            <div className="modal-badges-row" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span className="brand-badge">Booth #{booth.booth_no}</span>
+              <span className={`status-badge ${comp.is_flip ? 'flipped' : 'retained'}`}>
+                {comp.status_label}
+              </span>
             </div>
+            <h2 className="modal-village-title">{booth.village_english}</h2>
+            <p className="modal-village-sub punjabi-text">
+              {booth.village_punjabi}
+            </p>
           </div>
-
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <button
+            <button 
+              className="btn-print-modal no-print" 
               onClick={handlePrintBooth}
-              className="modal-print-btn no-print"
-              title="Print or Save Booth Dossier as PDF with Dsidein Watermark"
-              aria-label="Export Single Booth Dossier as PDF"
+              title="Export / Print this Booth Dossier as PDF"
             >
               <Printer size={15} />
-              <span>Print Dossier</span>
+              <span>Export PDF</span>
             </button>
-
-            <button 
-              className="modal-close-btn no-print" 
-              onClick={onClose} 
-              aria-label="Close dialog"
-            >
-              <X size={18} />
+            <button className="modal-close no-print" onClick={onClose} aria-label="Close Modal">
+              <X size={20} />
             </button>
           </div>
         </div>
 
-        {/* Comparison Summary Banner */}
-        <div className={`modal-summary-banner ${comp.is_flip ? 'flipped' : 'retained'}`}>
-          <div className="summary-banner-left">
-            <span className="summary-status-label">{comp.status_label}</span>
-            <span className="summary-lead-delta">
-              Turnout: {comp.turnout_diff >= 0 ? `+${comp.turnout_diff}` : comp.turnout_diff} votes ({comp.turnout_pct}%)
-            </span>
-          </div>
-          <div className="summary-banner-right">
-            <span className={`swing-tag aap ${comp.aap_swing >= 0 ? 'gain' : 'drop'}`}>
-              AAP {comp.aap_swing >= 0 ? `+${comp.aap_swing}%` : `${comp.aap_swing}%`}
-            </span>
-            <span className={`swing-tag inc ${comp.inc_swing >= 0 ? 'gain' : 'drop'}`}>
-              INC {comp.inc_swing >= 0 ? `+${comp.inc_swing}%` : `${comp.inc_swing}%`}
-            </span>
-          </div>
-        </div>
-
-        {/* Year Comparison Columns */}
-        <div className="years-grid">
+        {/* Side-by-side Comparative Cards */}
+        <div className="compare-grid">
           {/* 2022 Assembly Column */}
           <div className="year-card">
             <div className="year-title">2022 Assembly Election</div>
@@ -210,6 +190,11 @@ export default function BoothModal({ booth, onClose }) {
               </div>
             </div>
 
+            {/* SAD-A & Others */}
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
+              SAD(A): {d24.sada} | Others: {d24.baaki} | NOTA: {d24.nota}
+            </div>
+
             {/* Total 2024 */}
             <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '8px', marginTop: '8px', fontSize: '0.8125rem', color: 'var(--text-secondary)', display: 'flex', justifyContent: 'space-between' }}>
               <span>Total Polled:</span>
@@ -218,29 +203,38 @@ export default function BoothModal({ booth, onClose }) {
           </div>
         </div>
 
-        {/* Turnout Shift Callout */}
-        <div className="turnout-shift-card">
-          <div className="turnout-shift-title">Turnout Shift Dynamics</div>
-          <div className="turnout-shift-grid">
+        {/* Turnout & Swing Summary Card */}
+        <div style={{ background: 'var(--bg-surface-elevated)', borderRadius: 'var(--radius-md)', padding: '16px', border: '1px solid var(--border-subtle)', marginBottom: '16px' }}>
+          <h4 style={{ fontSize: '0.875rem', fontWeight: 700, marginBottom: '8px', color: 'var(--text-primary)' }}>
+            Turnout & Vote Shift Analysis
+          </h4>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px', fontSize: '0.8125rem' }}>
             <div>
-              <span className="ts-label">2022 Polled:</span>
-              <span className="ts-value">{d22.total}</span>
+              <span style={{ color: 'var(--text-muted)' }}>Turnout Shift:</span>
+              <div style={{ fontWeight: 700, color: comp.turnout_diff >= 0 ? 'var(--color-gain)' : 'var(--color-loss)' }}>
+                {comp.turnout_diff > 0 ? `+${comp.turnout_diff}` : comp.turnout_diff} ({comp.turnout_pct}%)
+              </div>
             </div>
+
             <div>
-              <span className="ts-label">2024 Polled:</span>
-              <span className="ts-value">{d24.total}</span>
+              <span style={{ color: 'var(--text-muted)' }}>INC Swing:</span>
+              <div style={{ fontWeight: 700, color: comp.inc_swing >= 0 ? 'var(--color-gain)' : 'var(--color-loss)' }}>
+                {comp.inc_swing >= 0 ? `+${comp.inc_swing}%` : `${comp.inc_swing}%`}
+              </div>
             </div>
+
             <div>
-              <span className="ts-label">Net Shift:</span>
-              <span className={`ts-value ${comp.turnout_diff >= 0 ? 'gain' : 'drop'}`}>
-                {comp.turnout_diff >= 0 ? `+${comp.turnout_diff}` : comp.turnout_diff} ({comp.turnout_pct}%)
-              </span>
-            </div>
-            <div>
-              <span className="ts-label">AAP Share Δ:</span>
-              <span className={`ts-value ${comp.aap_swing >= 0 ? 'gain' : 'drop'}`}>
+              <span style={{ color: 'var(--text-muted)' }}>AAP Swing:</span>
+              <div style={{ fontWeight: 700, color: comp.aap_swing >= 0 ? 'var(--color-gain)' : 'var(--color-loss)' }}>
                 {comp.aap_swing >= 0 ? `+${comp.aap_swing}%` : `${comp.aap_swing}%`}
-              </span>
+              </div>
+            </div>
+
+            <div>
+              <span style={{ color: 'var(--text-muted)' }}>BJP Impact:</span>
+              <div style={{ fontWeight: 700, color: 'var(--color-bjp)' }}>
+                {comp.bjp_gain}% ({d24.bjp} votes)
+              </div>
             </div>
           </div>
         </div>
@@ -250,30 +244,24 @@ export default function BoothModal({ booth, onClose }) {
         ========================================================= */}
         {booth.masterplan && (
           <div className="modal-masterplan-box">
-            {/* Section Header with Bilingual Toggle & Category Badge */}
-            <div className="masterplan-header-row">
-              <div className="masterplan-header-left">
-                <Target size={18} className="mp-header-icon" />
+            {/* Masterplan Header with Bilingual Toggle & Category Badge */}
+            <div className="masterplan-header">
+              <div className="masterplan-title-wrap">
+                <div className="masterplan-icon-badge">
+                  <Target size={16} />
+                </div>
                 <div>
                   <h3 className="masterplan-title">
-                    {mpLang === 'PA' ? 'ਬੂਥ-ਵਾਰ ਮਾਸਟਰ ਪਲਾਨ ਅਤੇ ਮੈਦਾਨੀ ਕਾਰਵਾਈ' : 'Booth-Specific Master Strategic Plan'}
+                    {mpLang === 'PA' ? '223 ਬੂਥ ਵਿਸਥਾਰਤ ਮਾਸਟਰ ਪਲਾਨ (Field Operations)' : '223-Booth Strategic Master Plan'}
                   </h3>
-                  <span className="masterplan-subtitle">
-                    {mpLang === 'PA' ? '223 ਬੂਥ ਵਿਸਥਾਰਤ ਕਾਰਜ ਯੋਜਨਾ (Field Operations)' : 'Sequential 7-8 Step Action Roadmap'}
-                  </span>
+                  <p className="masterplan-sub">
+                    {mpLang === 'PA' ? 'ਮੈਦਾਨੀ ਕਾਰਵਾਈਆਂ ਅਤੇ ਪਬਲਿਕ ਇਸ਼ੂ ਪਲਾਨ' : 'Field Ground Directive & 90-Day Action Roadmap'}
+                  </p>
                 </div>
               </div>
 
-              <div className="masterplan-header-right">
-                {/* Language Switcher */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <div className="mp-lang-switch no-print" role="group" aria-label="Masterplan language">
-                  <button
-                    className={`mp-lang-btn ${mpLang === 'EN' ? 'active' : ''}`}
-                    onClick={() => setMpLang('EN')}
-                    type="button"
-                  >
-                    English
-                  </button>
                   <button
                     className={`mp-lang-btn ${mpLang === 'PA' ? 'active' : ''}`}
                     onClick={() => setMpLang('PA')}
@@ -281,15 +269,22 @@ export default function BoothModal({ booth, onClose }) {
                   >
                     ਪੰਜਾਬੀ
                   </button>
+                  <button
+                    className={`mp-lang-btn ${mpLang === 'EN' ? 'active' : ''}`}
+                    onClick={() => setMpLang('EN')}
+                    type="button"
+                  >
+                    English
+                  </button>
                 </div>
 
                 <span className={`masterplan-cat-badge ${
-                  booth.masterplan.category_type.includes('AAP Retained') ? 'aap-won' :
-                  booth.masterplan.category_type.includes('Gain') ? 'aap-gain' :
-                  booth.masterplan.category_type.includes('Reversal') ? 'aap-lost' :
-                  booth.masterplan.category_type.includes('INC') ? 'inc-won' : 'neutral'
+                  booth.masterplan.category_type && booth.masterplan.category_type.includes('AAP Retained') ? 'aap-won' :
+                  booth.masterplan.category_type && booth.masterplan.category_type.includes('Gain') ? 'aap-gain' :
+                  booth.masterplan.category_type && booth.masterplan.category_type.includes('Reversal') ? 'aap-lost' :
+                  booth.masterplan.category_type && booth.masterplan.category_type.includes('INC') ? 'inc-won' : 'neutral'
                 }`}>
-                  {booth.masterplan.category_type}
+                  {booth.masterplan.category_type || 'Field Operations'}
                 </span>
               </div>
             </div>
@@ -331,11 +326,11 @@ export default function BoothModal({ booth, onClose }) {
               <div className="mp-card-label">
                 <span>{mpLang === 'PA' ? 'ਸਿਫਾਰਸ਼ ਕੀਤੀਆਂ ਮੈਦਾਨੀ ਕਾਰਵਾਈਆਂ (Field Operations)' : 'Recommended Step-by-Step Field Actions'}</span>
                 <span className="mp-steps-count">
-                  ({(mpLang === 'PA' && booth.masterplan.action_steps_pa ? booth.masterplan.action_steps_pa : booth.masterplan.action_steps).length} Steps)
+                  ({(mpLang === 'PA' && booth.masterplan.action_steps_pa ? booth.masterplan.action_steps_pa : booth.masterplan.action_steps || []).length} Steps)
                 </span>
               </div>
               <div className="mp-steps-list">
-                {(mpLang === 'PA' && booth.masterplan.action_steps_pa ? booth.masterplan.action_steps_pa : booth.masterplan.action_steps).map((step, idx) => {
+                {(mpLang === 'PA' && booth.masterplan.action_steps_pa ? booth.masterplan.action_steps_pa : booth.masterplan.action_steps || []).map((step, idx) => {
                   const cleanStep = typeof step === 'string' ? step.replace(/^\d+[\)\.]\s*/, '') : step;
                   return (
                     <div key={idx} className="mp-step-item">
