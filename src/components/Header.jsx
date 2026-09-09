@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sun, Moon, Menu, ChevronDown, FileSpreadsheet, FileText, ExternalLink, Globe, Search } from 'lucide-react';
+import { Sun, Moon, Menu, ChevronDown, FileSpreadsheet, FileText, ExternalLink, Search } from 'lucide-react';
 
 export default function Header({ 
   theme, 
@@ -26,19 +26,6 @@ export default function Header({
             <span className="header-separator">/</span>
             <span className="header-crumb">18-QADIAN</span>
           </div>
-
-          {/* Custom Domain Link Badge */}
-          <a 
-            href="https://dsidein.com/qadian-2022-2024" 
-            target="_blank" 
-            rel="noreferrer"
-            className="custom-domain-chip"
-            title="Official Custom Domain Link: https://dsidein.com/qadian-2022-2024"
-          >
-            <Globe size={13} className="globe-icon" />
-            <span className="domain-text">dsidein.com/qadian-2022-2024</span>
-            <ExternalLink size={11} style={{ opacity: 0.7 }} />
-          </a>
         </div>
 
         {/* Center: Search input matching Dsidein navbar */}
