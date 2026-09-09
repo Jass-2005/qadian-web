@@ -629,36 +629,16 @@
   letter-spacing: -0.01em;
 }
 
-.live-sync-pill {
+.registry-booth-count {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
   padding: 3px 10px;
   border-radius: var(--radius-full);
-  background: #ecfdf5;
-  color: #059669;
-  border: 1px solid #a7f3d0;
-}
-
-[data-theme="dark"] .live-sync-pill {
-  background: rgba(5, 150, 105, 0.15);
-  color: #34d399;
-  border-color: rgba(5, 150, 105, 0.3);
-}
-
-.pulse-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #059669;
-  box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.2);
-}
-
-[data-theme="dark"] .pulse-dot {
-  background: #34d399;
-  box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.3);
+  background: var(--bg-surface-elevated);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
 }
 
 .registry-subtitle {
@@ -1958,7 +1938,7 @@
     font-size: 1rem;
   }
 
-  .live-sync-pill {
+  .registry-booth-count {
     font-size: 0.6875rem;
     padding: 2px 8px;
   }

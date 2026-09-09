@@ -384,10 +384,7 @@ export default function App() {
               <div className="registry-title-group">
                 <div className="registry-title-row">
                   <h2 className="registry-title">Booth Performance Registry</h2>
-                  <span className="live-sync-pill">
-                    <span className="pulse-dot"></span>
-                    Live Sync ({filteredBooths.length} Booths)
-                  </span>
+                  <span className="registry-booth-count">{filteredBooths.length} Booths</span>
                 </div>
                 <p className="registry-subtitle">
                   Detailed booth-by-booth vote tally, turnout, winners, and margin shifts across 18-Qadian
