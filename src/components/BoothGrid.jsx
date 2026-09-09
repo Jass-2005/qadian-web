@@ -119,8 +119,8 @@ export default function BoothGrid({
                       onClick={() => onSelectBooth(b)}
                       title={`Click to inspect Booth #${b.booth_no}`}
                     >
-                      <td style={{ textAlign: 'center', fontWeight: 700, color: 'var(--text-muted)' }}>
-                        #{b.booth_no}
+                      <td style={{ textAlign: 'center' }}>
+                        <span className="booth-avatar-badge">{b.booth_no}</span>
                       </td>
 
                       <td>
@@ -162,7 +162,7 @@ export default function BoothGrid({
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
                           <button
                             className="btn-table-pdf"
-                            title={`Export Booth #${b.booth_no} as PDF`}
+                            title={`Export Booth #${b.booth_no} as PDF with Dsidein Watermark`}
                             onClick={(e) => {
                               e.stopPropagation();
                               onExportBoothPdf(b);
@@ -171,7 +171,14 @@ export default function BoothGrid({
                             <Printer size={12} />
                             <span>PDF</span>
                           </button>
-                          <ChevronRight size={14} style={{ color: 'var(--text-muted)' }} />
+                          <button
+                            className="btn-table-view"
+                            title={`Inspect Booth #${b.booth_no}`}
+                            onClick={() => onSelectBooth(b)}
+                          >
+                            <span>View</span>
+                            <ChevronRight size={12} />
+                          </button>
                         </div>
                       </td>
                     </tr>
@@ -210,8 +217,8 @@ export default function BoothGrid({
                     onClick={() => onSelectBooth(b)}
                     title={`Click to inspect Booth #${b.booth_no}`}
                   >
-                    <td style={{ textAlign: 'center', fontWeight: 700, color: 'var(--text-muted)' }}>
-                      #{b.booth_no}
+                    <td style={{ textAlign: 'center' }}>
+                      <span className="booth-avatar-badge">{b.booth_no}</span>
                     </td>
 
                     <td>
@@ -241,7 +248,9 @@ export default function BoothGrid({
 
                     <td>
                       <span className={`mini-winner ${w24}`}>{w24}</span>
-                    </td>                    <td>
+                    </td>
+
+                    <td>
                       <span className={`cat-pill ${catClass}`}>{catLabel}</span>
                     </td>
 
@@ -249,7 +258,7 @@ export default function BoothGrid({
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
                         <button
                           className="btn-table-pdf"
-                          title={`Export Booth #${b.booth_no} as PDF`}
+                          title={`Export Booth #${b.booth_no} as PDF with Dsidein Watermark`}
                           onClick={(e) => {
                             e.stopPropagation();
                             onExportBoothPdf(b);
@@ -258,7 +267,14 @@ export default function BoothGrid({
                           <Printer size={12} />
                           <span>PDF</span>
                         </button>
-                        <ChevronRight size={14} style={{ color: 'var(--text-muted)' }} />
+                        <button
+                          className="btn-table-view"
+                          title={`Inspect Booth #${b.booth_no}`}
+                          onClick={() => onSelectBooth(b)}
+                        >
+                          <span>View</span>
+                          <ChevronRight size={12} />
+                        </button>
                       </div>
                     </td>
                   </tr>

@@ -199,7 +199,13 @@ export default function App() {
       {/* 2. Main Content Frame */}
       <div className="dsidein-content-frame">
         {/* Top Navigation Bar */}
-        <Header theme={theme} toggleTheme={toggleTheme} onMenuClick={() => {}} />
+        <Header 
+          theme={theme} 
+          toggleTheme={toggleTheme} 
+          onMenuClick={() => {}} 
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
 
         {/* Dsidein Official PDF Watermark (Active on all PDF exports & printing) */}
         <div className="dsidein-print-watermark" aria-hidden="true">
@@ -232,125 +238,61 @@ export default function App() {
 
         {/* Scrollable Main Dashboard Area */}
         <main className="dsidein-main-body">
-          {/* Hero Welcome Header (Matching Dsidein Command Center) */}
-          <section className="dsidein-hero-banner">
-            <div className="hero-text-wrap">
-              <h1 className="hero-title">
-                Welcome back, <span className="hero-highlight">Dsidein!</span>
-              </h1>
-              <p className="hero-subtitle">
-                Your election analytics command center for 18-Qadian (2022 Assembly vs 2024 Lok Sabha).
+          {/* Refined Minimal Page Title Bar (Replacing bulky hero banner) */}
+          <section className="dashboard-title-bar">
+            <div className="title-text-group">
+              <div className="constituency-tag">18-QADIAN ASSEMBLY SEGMENT</div>
+              <h1 className="main-title">Comparative Booth Intelligence</h1>
+              <p className="main-subtitle">
+                2022 Vidhan Sabha vs 2024 Lok Sabha Polling Telemetry across all 223 Polling Stations
               </p>
             </div>
 
-            <div className="hero-actions-wrap">
-              <button 
-                className="hero-btn-green"
-                onClick={() => handleResetToCompleteList()}
-                title="View Live Map and All 223 Booths"
-              >
-                <Compass size={16} />
-                <span>Live Map (223 Booths)</span>
-              </button>
-
-              <button 
-                className="hero-btn-blue"
-                onClick={() => setSelectedParty(prev => prev === 'ALL' ? 'AAP' : prev === 'AAP' ? 'INC' : 'ALL')}
-                title="Toggle Constituency Party Hierarchy"
-              >
-                <Layers size={16} />
-                <span>Constituency Hierarchy</span>
-              </button>
-            </div>
-          </section>
-
-          {/* Quick Actions Control Panel */}
-          <section className="quick-actions-section">
-            <div className="section-mini-heading">QUICK ACTIONS CONTROL PANEL</div>
-            <div className="quick-actions-grid">
-              <button 
-                className="quick-action-card"
-                onClick={handleResetToCompleteList}
-                title="Show all 223 booths"
-              >
-                <div className="quick-icon-wrap icon-green">
-                  <Compass size={18} />
-                </div>
-                <span className="quick-action-text">Live Map (223)</span>
-              </button>
-
-              <button 
-                className="quick-action-card"
-                onClick={() => setSelectedParty(prev => prev === 'AAP' ? 'INC' : 'AAP')}
-                title="Switch Party Intelligence (AAP / INC)"
-              >
-                <div className="quick-icon-wrap icon-blue">
-                  <Users size={18} />
-                </div>
-                <span className="quick-action-text">Party Hub ({selectedParty})</span>
-              </button>
-
+            <div className="title-action-buttons">
               <a 
                 href="./Qadian_Master_Booth_Analysis_AAP_INC.xlsx" 
                 download="Qadian_Master_Booth_Analysis_AAP_INC.xlsx"
-                className="quick-action-card"
-                title="Download Master Excel Spreadsheet with color coding"
+                className="pill-action-btn green"
+                title="Download Master Analysis Spreadsheet (Excel .xlsx with AAP/INC Colors)"
               >
-                <div className="quick-icon-wrap icon-teal">
-                  <FileSpreadsheet size={18} />
-                </div>
-                <span className="quick-action-text">Master Excel</span>
+                <FileSpreadsheet size={15} />
+                <span>Master Excel</span>
               </a>
 
               <a 
                 href="./Qadian_Master_Booth_Analysis_AAP.docx" 
                 download="Qadian_Master_Booth_Analysis_AAP.docx"
-                className="quick-action-card"
+                className="pill-action-btn blue"
                 title="Download Strategic Analysis Report (Word .docx)"
               >
-                <div className="quick-icon-wrap icon-purple">
-                  <FileText size={18} />
-                </div>
-                <span className="quick-action-text">Report (.docx)</span>
+                <FileText size={15} />
+                <span>Strategy Report</span>
               </a>
 
               <button 
-                className="quick-action-card"
                 onClick={handlePrintMasterReport}
-                title="Export Filtered Table as PDF with Dsidein Watermark"
+                className="pill-action-btn outline"
+                title="Export Current View as PDF with Dsidein Watermark"
               >
-                <div className="quick-icon-wrap icon-orange">
-                  <Printer size={18} />
-                </div>
-                <span className="quick-action-text">Export PDF</span>
-              </button>
-
-              <button 
-                className="quick-action-card"
-                onClick={handleResetToCompleteList}
-                title="Reset all filters to complete view"
-              >
-                <div className="quick-icon-wrap icon-rose">
-                  <RotateCcw size={18} />
-                </div>
-                <span className="quick-action-text">Reset All</span>
+                <Printer size={15} />
+                <span>Export PDF</span>
               </button>
             </div>
           </section>
 
-          {/* Dsidein KPI Metric Cards */}
+          {/* Dsidein 4 Minimal KPI Metric Cards */}
           <section className="dsidein-kpi-grid">
-            {/* KPI 1: Live Status */}
+            {/* KPI 1: Live Telemetry */}
             <div className="dsidein-kpi-card">
               <div className="kpi-top-row">
                 <div className="kpi-icon-pill icon-blue">
                   <Compass size={18} />
                 </div>
               </div>
-              <div className="kpi-label">LIVE TRACKING MAP</div>
-              <div className="kpi-value text-blue">Active</div>
+              <div className="kpi-label">POLLING STATIONS</div>
+              <div className="kpi-value text-blue">223 Booths</div>
               <div className="kpi-sub-pill text-blue">
-                ● Real-time Telemetry: 223 Booths
+                ● 100% Monitored & Verified
               </div>
             </div>
 
@@ -364,7 +306,7 @@ export default function App() {
               <div className="kpi-label">2024 VALID VOTES</div>
               <div className="kpi-value">118,991</div>
               <div className="kpi-sub-pill text-orange">
-                ● 72.1% Valid Polled (vs 131,418 in ’22)
+                ● 72.1% Valid Polled (-9.5% vs ’22)
               </div>
             </div>
 
@@ -378,7 +320,7 @@ export default function App() {
               <div className="kpi-label">CONGRESS (INC)</div>
               <div className="kpi-value text-green">41,806</div>
               <div className="kpi-sub-pill text-green">
-                ● 111 Wins (35.1% Vote Share | +3,152 Lead)
+                ● 111 Wins (35.1% Share | +3,152 Lead)
               </div>
             </div>
 
@@ -392,90 +334,107 @@ export default function App() {
               <div className="kpi-label">AAP (KALSI)</div>
               <div className="kpi-value text-purple">38,654</div>
               <div className="kpi-sub-pill text-purple">
-                ● 81 Wins (32.5% Vote Share | 63 Gains)
+                ● 81 Wins (32.5% Share | 63 Gains)
               </div>
             </div>
           </section>
 
-          {/* Party Intelligence Hub (Category Filters for AAP & INC) */}
-          <PartyHub 
-            selectedParty={selectedParty}
-            setSelectedParty={setSelectedParty}
-            partyFilter={partyFilter}
-            setPartyFilter={setPartyFilter}
-            partyStats={partyStats}
-            summary={summary}
-          />
+          {/* Unified Registry Card (Styled after 'Team Progress Today' in Dsidein) */}
+          <section className="dsidein-registry-card">
+            {/* Card Top Title Row */}
+            <div className="registry-card-header">
+              <div className="registry-title-group">
+                <div className="registry-title-row">
+                  <h2 className="registry-title">Booth Performance Registry</h2>
+                  <span className="live-sync-pill">
+                    <span className="pulse-dot"></span>
+                    Live Sync ({filteredBooths.length} Booths)
+                  </span>
+                </div>
+                <p className="registry-subtitle">
+                  Detailed booth-by-booth vote tally, turnout, winners, and margin shifts across 18-Qadian
+                </p>
+              </div>
 
-          {/* Search & Sort Toolbar */}
-          <div className="search-toolbar">
-            <div className="search-field-wrap">
-              <Search size={16} />
-              <input
-                type="text"
-                className="search-field"
-                placeholder={
-                  selectedParty === 'ALL'
-                    ? 'Search all 223 booths by number or village name (e.g. 104, Fateh Nangal, ਫਤਿਹ)...'
-                    : `Search ${selectedParty} performance by booth no. or village (e.g. 53, Fateh Nangal, ਫਤਿਹ)...`
-                }
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
+              <div className="registry-header-actions">
+                <button 
+                  className="btn-registry-reset"
+                  onClick={handleResetToCompleteList}
+                  title="Reset all filters to complete view"
+                >
+                  <RotateCcw size={14} />
+                  <span>Reset All</span>
+                </button>
+              </div>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-              {/* Export View as PDF */}
-              <button
-                onClick={handlePrintMasterReport}
-                className="toggle-btn btn-export-master"
-                style={{ padding: '8px 12px', background: 'var(--bg-surface-elevated)', border: '1px solid var(--border-subtle)', color: 'var(--text-primary)', fontWeight: 600 }}
-                title="Print or Export Current Filtered Table as PDF with Dsidein Watermark"
-              >
-                <Printer size={14} />
-                <span>Export List PDF</span>
-              </button>
+            {/* Party Selector & Category Filter Pills */}
+            <PartyHub 
+              selectedParty={selectedParty}
+              setSelectedParty={setSelectedParty}
+              partyFilter={partyFilter}
+              setPartyFilter={setPartyFilter}
+              partyStats={partyStats}
+              summary={summary}
+            />
 
-              {/* Reset / Complete List Button */}
-              <button
-                onClick={handleResetToCompleteList}
-                className="toggle-btn"
-                style={{ padding: '8px 12px', background: 'var(--bg-surface-elevated)', border: '1px solid var(--border-subtle)' }}
-                title="Show all 223 booths and reset filters"
-              >
-                <RotateCcw size={14} />
-                <span>Show All 223</span>
-              </button>
+            {/* Search & Sort Sub-Toolbar */}
+            <div className="registry-toolbar">
+              <div className="toolbar-search-wrap">
+                <Search size={15} />
+                <input
+                  type="text"
+                  className="toolbar-search-input"
+                  placeholder={
+                    selectedParty === 'ALL'
+                      ? 'Search all 223 booths by number or village (e.g. 104, Fateh Nangal, ਫਤਿਹ)...'
+                      : `Search ${selectedParty} performance by booth no. or village (e.g. 53, Fateh Nangal)...`
+                  }
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  aria-label="Filter booths"
+                />
+              </div>
 
-              {/* Sort Dropdown */}
-              <select
-                className="sort-select"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                aria-label="Sort Booths"
-              >
-                <option value="BOOTH_ASC">Sort: Booth No. (1 → 223)</option>
-                <option value="BOOTH_DESC">Sort: Booth No. (223 → 1)</option>
-                <option value="TURNOUT_DESC">Highest 2024 Turnout</option>
-                <option value="MARGIN_DESC">Highest 2024 Margin</option>
-                {selectedParty !== 'ALL' && (
-                  <>
-                    <option value="VOTES_DESC">Highest {selectedParty} Votes</option>
-                    <option value="VOTES_ASC">Lowest {selectedParty} Votes</option>
-                  </>
-                )}
-              </select>
+              <div className="toolbar-controls">
+                <button
+                  onClick={handlePrintMasterReport}
+                  className="btn-toolbar-pdf"
+                  title="Export Current Table View as PDF with Dsidein Watermark"
+                >
+                  <Printer size={14} />
+                  <span>Export PDF</span>
+                </button>
+
+                <select
+                  className="sort-select"
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  aria-label="Sort Booths"
+                >
+                  <option value="BOOTH_ASC">Sort: Booth No. (1 → 223)</option>
+                  <option value="BOOTH_DESC">Sort: Booth No. (223 → 1)</option>
+                  <option value="TURNOUT_DESC">Highest 2024 Turnout</option>
+                  <option value="MARGIN_DESC">Highest 2024 Margin</option>
+                  {selectedParty !== 'ALL' && (
+                    <>
+                      <option value="VOTES_DESC">Highest {selectedParty} Votes</option>
+                      <option value="VOTES_ASC">Lowest {selectedParty} Votes</option>
+                    </>
+                  )}
+                </select>
+              </div>
             </div>
-          </div>
 
-          {/* Booth List / Grid */}
-          <BoothGrid 
-            booths={filteredBooths}
-            selectedParty={selectedParty}
-            partyFilter={partyFilter}
-            onSelectBooth={(b) => setSelectedBooth(b)}
-            onExportBoothPdf={handleExportBoothPdf}
-          />
+            {/* Booth Table / Grid */}
+            <BoothGrid 
+              booths={filteredBooths}
+              selectedParty={selectedParty}
+              partyFilter={partyFilter}
+              onSelectBooth={(b) => setSelectedBooth(b)}
+              onExportBoothPdf={handleExportBoothPdf}
+            />
+          </section>
         </main>
       </div>
 

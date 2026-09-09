@@ -1,7 +1,13 @@
 import React from 'react';
-import { Sun, Moon, Menu, ChevronDown, FileSpreadsheet, FileText, ExternalLink, Globe } from 'lucide-react';
+import { Sun, Moon, Menu, ChevronDown, FileSpreadsheet, FileText, ExternalLink, Globe, Search } from 'lucide-react';
 
-export default function Header({ theme, toggleTheme, onMenuClick }) {
+export default function Header({ 
+  theme, 
+  toggleTheme, 
+  onMenuClick,
+  searchQuery,
+  setSearchQuery
+}) {
   return (
     <header className="app-header no-print">
       <div className="header-container">
@@ -33,6 +39,21 @@ export default function Header({ theme, toggleTheme, onMenuClick }) {
             <span className="domain-text">dsidein.com/qadian-2022-2024</span>
             <ExternalLink size={11} style={{ opacity: 0.7 }} />
           </a>
+        </div>
+
+        {/* Center: Search input matching Dsidein navbar */}
+        <div className="header-center-search">
+          <div className="header-search-box">
+            <Search size={15} className="header-search-icon" />
+            <input 
+              type="text" 
+              className="header-search-input"
+              placeholder="Search 223 booths, villages, numbers..."
+              value={searchQuery || ''}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              aria-label="Search booths or villages"
+            />
+          </div>
         </div>
 
         {/* Right: Actions, Theme & Dsidein User Profile */}
@@ -84,3 +105,4 @@ export default function Header({ theme, toggleTheme, onMenuClick }) {
     </header>
   );
 }
+
