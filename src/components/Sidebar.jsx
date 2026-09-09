@@ -97,14 +97,14 @@ export default function Sidebar({ activeTab, setActiveTab, isOpen, onClose }) {
           </a>
 
           <a 
-            href="./Qadian_Detailed_223_Boothwise_Masterplan_Punjabi.docx" 
-            download="Qadian_Detailed_223_Boothwise_Masterplan_Punjabi.docx"
+            href="./Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.docx" 
+            download="Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.docx"
             className="sidebar-nav-btn"
-            title="Download Detailed 223-Booth Master Plan in Punjabi (.docx)"
+            title="Download 223-Booth Detailed Field Operations Plan in Punjabi (.docx)"
             onClick={() => { if (onClose) onClose(); }}
           >
             <ClipboardList size={20} />
-            <span className="sidebar-label hide-desktop">ਮਾਸਟਰ ਪਲਾਨ (PA)</span>
+            <span className="sidebar-label hide-desktop">223 ਬੂਥ ਪਲਾਨ (PA)</span>
           </a>
 
           <a 

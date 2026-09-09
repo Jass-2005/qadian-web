@@ -21,7 +21,7 @@ export default function FilterBar({
     { id: 'FLIPPED_TO_BJP', label: 'Flipped to BJP (25)' },
     { id: 'FLIPPED_TO_AAP', label: 'Flipped to AAP (63)' },
     { id: 'FLIPPED_TO_INC', label: 'Flipped to INC (42)' },
-    { id: 'SAD_LOST', label: 'SAD Lost Booths (36)' },
+    { id: 'SEKHWAN_LOST', label: 'Sekhwan Lost Booths (36)' },
   ];
 
   return (
@@ -50,7 +50,7 @@ export default function FilterBar({
             <option value="ALL">2022 Winner: All</option>
             <option value="INC">2022: INC Won</option>
             <option value="AAP">2022: AAP Won</option>
-            <option value="SAD">2022: SAD Won</option>
+            <option value="Sekhwan">2022: Sekhwan Won</option>
           </select>
 
           {/* 2024 Winner Filter */}

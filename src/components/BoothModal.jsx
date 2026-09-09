@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, TrendingUp, TrendingDown, Award, Users, AlertCircle, Printer, Target, Download, FileText } from 'lucide-react';
 
 export default function BoothModal({ booth, onClose }) {
-  const [mpLang, setMpLang] = useState('EN');
+  const [mpLang, setMpLang] = useState('PA');
   if (!booth) return null;
 
   const d22 = booth.data_2022;
@@ -54,34 +54,54 @@ export default function BoothModal({ booth, onClose }) {
         {/* Modal Header */}
         <div className="modal-header">
           <div className="modal-header-left">
-            <div className="modal-badges-row" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span className="brand-badge">Booth #{booth.booth_no}</span>
-              <span className={`status-badge ${comp.is_flip ? 'flipped' : 'retained'}`}>
-                {comp.status_label}
-              </span>
+            <span className="booth-avatar-badge large">#{booth.booth_no}</span>
+            <div>
+              <h2 className="modal-title">{booth.village_english}</h2>
+              <p className="modal-subtitle punjabi-font">{booth.village_punjabi}</p>
             </div>
-            <h2 className="modal-village-title">{booth.village_english}</h2>
-            <p className="modal-village-sub punjabi-text">
-              {booth.village_punjabi}
-            </p>
           </div>
-          <div className="modal-header-right">
-            <button 
-              className="btn-print-modal no-print" 
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <button
               onClick={handlePrintBooth}
-              title="Export / Print this Booth Dossier as PDF"
+              className="modal-print-btn no-print"
+              title="Print or Save Booth Dossier as PDF with Dsidein Watermark"
+              aria-label="Export Single Booth Dossier as PDF"
             >
               <Printer size={15} />
-              <span>Export PDF</span>
+              <span>Print Dossier</span>
             </button>
-            <button className="modal-close no-print" onClick={onClose} aria-label="Close Modal">
-              <X size={20} />
+
+            <button 
+              className="modal-close-btn no-print" 
+              onClick={onClose} 
+              aria-label="Close dialog"
+            >
+              <X size={18} />
             </button>
           </div>
         </div>
 
-        {/* Side-by-side Comparative Cards */}
-        <div className="compare-grid">
+        {/* Comparison Summary Banner */}
+        <div className={`modal-summary-banner ${comp.is_flip ? 'flipped' : 'retained'}`}>
+          <div className="summary-banner-left">
+            <span className="summary-status-label">{comp.status_label}</span>
+            <span className="summary-lead-delta">
+              Turnout: {comp.turnout_diff >= 0 ? `+${comp.turnout_diff}` : comp.turnout_diff} votes ({comp.turnout_pct}%)
+            </span>
+          </div>
+          <div className="summary-banner-right">
+            <span className={`swing-tag aap ${comp.aap_swing >= 0 ? 'gain' : 'drop'}`}>
+              AAP {comp.aap_swing >= 0 ? `+${comp.aap_swing}%` : `${comp.aap_swing}%`}
+            </span>
+            <span className={`swing-tag inc ${comp.inc_swing >= 0 ? 'gain' : 'drop'}`}>
+              INC {comp.inc_swing >= 0 ? `+${comp.inc_swing}%` : `${comp.inc_swing}%`}
+            </span>
+          </div>
+        </div>
+
+        {/* Year Comparison Columns */}
+        <div className="years-grid">
           {/* 2022 Assembly Column */}
           <div className="year-card">
             <div className="year-title">2022 Assembly Election</div>
@@ -116,14 +136,14 @@ export default function BoothModal({ booth, onClose }) {
               </div>
             </div>
 
-            {/* SAD Bar */}
+            {/* Sekhwan Bar (2022 Assembly) */}
             <div className="vote-bar-wrap">
               <div className="vote-bar-label">
-                <span>SAD (Sekhwan)</span>
+                <span>Sekhwan</span>
                 <span><strong>{d22.sad}</strong> ({d22.sad_pct}%)</span>
               </div>
               <div className="vote-bar-track">
-                <div className="vote-bar-fill" style={{ width: getWidth(d22.sad, d22.total), background: 'var(--color-sad)' }} />
+                <div className="vote-bar-fill" style={{ width: getWidth(d22.sad, d22.total), background: 'var(--color-sekhwan, #7c3aed)' }} />
               </div>
             </div>
 
@@ -179,7 +199,7 @@ export default function BoothModal({ booth, onClose }) {
               </div>
             </div>
 
-            {/* SAD Bar */}
+            {/* SAD Bar (2024 Parliamentary) */}
             <div className="vote-bar-wrap">
               <div className="vote-bar-label">
                 <span>SAD (Cheema)</span>
@@ -190,11 +210,6 @@ export default function BoothModal({ booth, onClose }) {
               </div>
             </div>
 
-            {/* SAD-A & Others */}
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
-              SAD(A): {d24.sada} | Others: {d24.baaki} | NOTA: {d24.nota}
-            </div>
-
             {/* Total 2024 */}
             <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '8px', marginTop: '8px', fontSize: '0.8125rem', color: 'var(--text-secondary)', display: 'flex', justifyContent: 'space-between' }}>
               <span>Total Polled:</span>
@@ -203,69 +218,66 @@ export default function BoothModal({ booth, onClose }) {
           </div>
         </div>
 
-        {/* Turnout & Swing Summary Card */}
-        <div style={{ background: 'var(--bg-surface-elevated)', borderRadius: 'var(--radius-md)', padding: '16px', border: '1px solid var(--border-subtle)' }}>
-          <h4 style={{ fontSize: '0.875rem', fontWeight: 700, marginBottom: '8px', color: 'var(--text-primary)' }}>
-            Turnout & Vote Shift Analysis
-          </h4>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px', fontSize: '0.8125rem' }}>
+        {/* Turnout Shift Callout */}
+        <div className="turnout-shift-card">
+          <div className="turnout-shift-title">Turnout Shift Dynamics</div>
+          <div className="turnout-shift-grid">
             <div>
-              <span style={{ color: 'var(--text-muted)' }}>Turnout Shift:</span>
-              <div style={{ fontWeight: 700, color: comp.turnout_diff >= 0 ? 'var(--color-gain)' : 'var(--color-loss)' }}>
-                {comp.turnout_diff > 0 ? `+${comp.turnout_diff}` : comp.turnout_diff} ({comp.turnout_pct}%)
-              </div>
+              <span className="ts-label">2022 Polled:</span>
+              <span className="ts-value">{d22.total}</span>
             </div>
-
             <div>
-              <span style={{ color: 'var(--text-muted)' }}>INC Swing:</span>
-              <div style={{ fontWeight: 700, color: comp.inc_swing >= 0 ? 'var(--color-gain)' : 'var(--color-loss)' }}>
-                {comp.inc_swing >= 0 ? `+${comp.inc_swing}%` : `${comp.inc_swing}%`}
-              </div>
+              <span className="ts-label">2024 Polled:</span>
+              <span className="ts-value">{d24.total}</span>
             </div>
-
             <div>
-              <span style={{ color: 'var(--text-muted)' }}>AAP Swing:</span>
-              <div style={{ fontWeight: 700, color: comp.aap_swing >= 0 ? 'var(--color-gain)' : 'var(--color-loss)' }}>
+              <span className="ts-label">Net Shift:</span>
+              <span className={`ts-value ${comp.turnout_diff >= 0 ? 'gain' : 'drop'}`}>
+                {comp.turnout_diff >= 0 ? `+${comp.turnout_diff}` : comp.turnout_diff} ({comp.turnout_pct}%)
+              </span>
+            </div>
+            <div>
+              <span className="ts-label">AAP Share Δ:</span>
+              <span className={`ts-value ${comp.aap_swing >= 0 ? 'gain' : 'drop'}`}>
                 {comp.aap_swing >= 0 ? `+${comp.aap_swing}%` : `${comp.aap_swing}%`}
-              </div>
-            </div>
-
-            <div>
-              <span style={{ color: 'var(--text-muted)' }}>BJP Impact:</span>
-              <div style={{ fontWeight: 700, color: 'var(--color-bjp)' }}>
-                {comp.bjp_gain}% ({d24.bjp} votes)
-              </div>
+              </span>
             </div>
           </div>
         </div>
 
-        {/* Strategic Booth Master Plan & Field Directive */}
+        {/* =========================================================
+            BOOTH-SPECIFIC DETAILED MASTER PLAN & FIELD STRATEGY
+        ========================================================= */}
         {booth.masterplan && (
           <div className="modal-masterplan-box">
-            <div className="masterplan-header">
-              <div className="masterplan-title-wrap">
-                <div className="masterplan-icon-badge">
-                  <Target size={16} />
-                </div>
+            {/* Section Header with Bilingual Toggle & Category Badge */}
+            <div className="masterplan-header-row">
+              <div className="masterplan-header-left">
+                <Target size={18} className="mp-header-icon" />
                 <div>
-                  <h3 className="masterplan-title">223-Booth Strategic Master Plan</h3>
-                  <p className="masterplan-sub">Field Ground Directive & 90-Day Action Roadmap</p>
+                  <h3 className="masterplan-title">
+                    {mpLang === 'PA' ? 'ਬੂਥ-ਵਾਰ ਮਾਸਟਰ ਪਲਾਨ ਅਤੇ ਮੈਦਾਨੀ ਕਾਰਵਾਈ' : 'Booth-Specific Master Strategic Plan'}
+                  </h3>
+                  <span className="masterplan-subtitle">
+                    {mpLang === 'PA' ? '223 ਬੂਥ ਵਿਸਥਾਰਤ ਕਾਰਜ ਯੋਜਨਾ (Field Operations)' : 'Sequential 7-8 Step Action Roadmap'}
+                  </span>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <div className="mp-lang-switch no-print">
-                  <button 
+              <div className="masterplan-header-right">
+                {/* Language Switcher */}
+                <div className="mp-lang-switch no-print" role="group" aria-label="Masterplan language">
+                  <button
                     className={`mp-lang-btn ${mpLang === 'EN' ? 'active' : ''}`}
                     onClick={() => setMpLang('EN')}
-                    title="English Version"
+                    type="button"
                   >
                     English
                   </button>
-                  <button 
+                  <button
                     className={`mp-lang-btn ${mpLang === 'PA' ? 'active' : ''}`}
                     onClick={() => setMpLang('PA')}
-                    title="ਪੰਜਾਬੀ ਵਰਜ਼ਨ"
+                    type="button"
                   >
                     ਪੰਜਾਬੀ
                   </button>
@@ -317,23 +329,36 @@ export default function BoothModal({ booth, onClose }) {
             {/* Action Roadmap */}
             <div className="masterplan-actions-card">
               <div className="mp-card-label">
-                <span>{mpLang === 'PA' ? 'ਸਿਫਾਰਸ਼ ਕੀਤੀਆਂ ਮੈਦਾਨੀ ਕਾਰਵਾਈਆਂ' : 'Recommended Step-by-Step Field Actions'}</span>
+                <span>{mpLang === 'PA' ? 'ਸਿਫਾਰਸ਼ ਕੀਤੀਆਂ ਮੈਦਾਨੀ ਕਾਰਵਾਈਆਂ (Field Operations)' : 'Recommended Step-by-Step Field Actions'}</span>
                 <span className="mp-steps-count">
                   ({(mpLang === 'PA' && booth.masterplan.action_steps_pa ? booth.masterplan.action_steps_pa : booth.masterplan.action_steps).length} Steps)
                 </span>
               </div>
               <div className="mp-steps-list">
-                {(mpLang === 'PA' && booth.masterplan.action_steps_pa ? booth.masterplan.action_steps_pa : booth.masterplan.action_steps).map((step, idx) => (
-                  <div key={idx} className="mp-step-item">
-                    <span className="mp-step-num">{idx + 1}</span>
-                    <span className={`mp-step-text ${mpLang === 'PA' ? 'punjabi-font' : ''}`}>{step}</span>
-                  </div>
-                ))}
+                {(mpLang === 'PA' && booth.masterplan.action_steps_pa ? booth.masterplan.action_steps_pa : booth.masterplan.action_steps).map((step, idx) => {
+                  const cleanStep = typeof step === 'string' ? step.replace(/^\d+[\)\.]\s*/, '') : step;
+                  return (
+                    <div key={idx} className="mp-step-item">
+                      <span className="mp-step-num">{idx + 1}</span>
+                      <span className={`mp-step-text ${mpLang === 'PA' ? 'punjabi-font' : ''}`}>{cleanStep}</span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
-            {/* Download Complete Master Plan Docx (English & Punjabi) */}
+            {/* Download Complete Master Plan Docx */}
             <div className="masterplan-download-row no-print">
+              <a 
+                href="./Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.docx" 
+                download="Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.docx"
+                className="btn-download-masterplan pa"
+                title="Download 223-Booth Detailed Field Operations Plan in Punjabi (Word .docx)"
+              >
+                <Download size={14} />
+                <span>223 ਬੂਥ ਮਾਸਟਰ ਪਲਾਨ (ਪੰਜਾਬੀ .docx)</span>
+              </a>
+
               <a 
                 href="./Qadian_Detailed_223_Boothwise_Masterplan.docx" 
                 download="Qadian_Detailed_223_Boothwise_Masterplan.docx"
@@ -342,16 +367,6 @@ export default function BoothModal({ booth, onClose }) {
               >
                 <Download size={14} />
                 <span>Master Plan (English .docx)</span>
-              </a>
-
-              <a 
-                href="./Qadian_Detailed_223_Boothwise_Masterplan_Punjabi.docx" 
-                download="Qadian_Detailed_223_Boothwise_Masterplan_Punjabi.docx"
-                className="btn-download-masterplan pa"
-                title="Download 223-Booth Master Plan Document in Punjabi (Word .docx)"
-              >
-                <Download size={14} />
-                <span>ਮਾਸਟਰ ਪਲਾਨ (ਪੰਜਾਬੀ .docx)</span>
               </a>
             </div>
           </div>

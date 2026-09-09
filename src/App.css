@@ -1449,7 +1449,24 @@
 .mini-winner.AAP { background: var(--color-aap-soft); color: var(--color-aap); border: 1px solid var(--color-aap-border); }
 .mini-winner.BJP { background: var(--color-bjp-soft); color: var(--color-bjp); border: 1px solid var(--color-bjp-border); }
 .mini-winner.SAD { background: var(--color-sad-soft); color: var(--color-sad); border: 1px solid var(--color-sad-border); }
+.mini-winner.Sekhwan { background: #f3e8ff; color: #7e22ce; border: 1px solid #d8b4fe; }
+[data-theme="dark"] .mini-winner.Sekhwan { background: rgba(126, 34, 206, 0.2); color: #d8b4fe; border: 1px solid rgba(216, 180, 254, 0.35); }
 .mini-winner.NA { background: var(--border-subtle); color: var(--text-muted); border: 1px solid var(--border-subtle); }
+
+.badge-winner {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  display: inline-block;
+}
+.badge-winner.INC { background: var(--color-inc-soft); color: var(--color-inc); border: 1px solid var(--color-inc-border); }
+.badge-winner.AAP { background: var(--color-aap-soft); color: var(--color-aap); border: 1px solid var(--color-aap-border); }
+.badge-winner.BJP { background: var(--color-bjp-soft); color: var(--color-bjp); border: 1px solid var(--color-bjp-border); }
+.badge-winner.SAD { background: var(--color-sad-soft); color: var(--color-sad); border: 1px solid var(--color-sad-border); }
+.badge-winner.Sekhwan { background: #f3e8ff; color: #7e22ce; border: 1px solid #d8b4fe; }
+[data-theme="dark"] .badge-winner.Sekhwan { background: rgba(126, 34, 206, 0.2); color: #d8b4fe; border: 1px solid rgba(216, 180, 254, 0.35); }
+
 
 .cat-pill {
   font-size: 0.7rem;

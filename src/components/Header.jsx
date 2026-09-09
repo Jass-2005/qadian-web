@@ -76,13 +76,13 @@ export default function Header({
           </a>
 
           <a 
-            href="./Qadian_Detailed_223_Boothwise_Masterplan_Punjabi.docx" 
-            download="Qadian_Detailed_223_Boothwise_Masterplan_Punjabi.docx"
+            href="./Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.docx" 
+            download="Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.docx"
             className="btn-dsidein-action hide-mobile"
-            title="Download Detailed 223-Booth Master Plan Document in Punjabi (Word .docx)"
+            title="Download 223-Booth Detailed Field Operations Plan in Punjabi (Word .docx)"
           >
             <FileText size={15} />
-            <span>ਮਾਸਟਰ ਪਲਾਨ (PA)</span>
+            <span>223 ਬੂਥ ਪਲਾਨ (PA)</span>
           </a>
 
           {/* Theme Toggle */}
