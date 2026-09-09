@@ -86,25 +86,25 @@ export default function Sidebar({ activeTab, setActiveTab, isOpen, onClose }) {
           </a>
 
           <a 
-            href="./Qadian_Detailed_223_Boothwise_Masterplan.docx" 
-            download="Qadian_Detailed_223_Boothwise_Masterplan.docx"
+            href="./Qadian_Detailed_223_Boothwise_Masterplan.pdf" 
+            download="Qadian_Detailed_223_Boothwise_Masterplan.pdf"
             className="sidebar-nav-btn"
-            title="Download Detailed 223-Booth Master Plan in English (.docx)"
+            title="Download Detailed 223-Booth Master Plan in English (PDF with Watermark)"
             onClick={() => { if (onClose) onClose(); }}
           >
             <ClipboardList size={20} />
-            <span className="sidebar-label hide-desktop">Master Plan (EN)</span>
+            <span className="sidebar-label hide-desktop">Master Plan (EN PDF)</span>
           </a>
 
           <a 
-            href="./Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.docx" 
-            download="Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.docx"
+            href="./Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.pdf" 
+            download="Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.pdf"
             className="sidebar-nav-btn"
-            title="Download 223-Booth Detailed Field Operations Plan in Punjabi (.docx)"
+            title="Download 223-Booth Detailed Field Operations Plan in Punjabi (PDF with Watermark)"
             onClick={() => { if (onClose) onClose(); }}
           >
             <ClipboardList size={20} />
-            <span className="sidebar-label hide-desktop">223 ਬੂਥ ਪਲਾਨ (PA)</span>
+            <span className="sidebar-label hide-desktop">223 ਬੂਥ ਪਲਾਨ (PA PDF)</span>
           </a>
 
           <a 

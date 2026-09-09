@@ -342,26 +342,26 @@ export default function BoothModal({ booth, onClose }) {
               </div>
             </div>
 
-            {/* Download Complete Master Plan Docx */}
+            {/* Download Complete Master Plan PDF */}
             <div className="masterplan-download-row no-print">
               <a 
-                href="./Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.docx" 
-                download="Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.docx"
+                href="./Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.pdf" 
+                download="Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.pdf"
                 className="btn-download-masterplan pa"
-                title="Download 223-Booth Detailed Field Operations Plan in Punjabi (Word .docx)"
+                title="Download 223-Booth Detailed Field Operations Plan in Punjabi (PDF with Watermark)"
               >
                 <Download size={14} />
-                <span>223 ਬੂਥ ਮਾਸਟਰ ਪਲਾਨ (ਪੰਜਾਬੀ .docx)</span>
+                <span>223 ਬੂਥ ਮਾਸਟਰ ਪਲਾਨ (ਪੰਜਾਬੀ PDF)</span>
               </a>
 
               <a 
-                href="./Qadian_Detailed_223_Boothwise_Masterplan.docx" 
-                download="Qadian_Detailed_223_Boothwise_Masterplan.docx"
+                href="./Qadian_Detailed_223_Boothwise_Masterplan.pdf" 
+                download="Qadian_Detailed_223_Boothwise_Masterplan.pdf"
                 className="btn-download-masterplan en"
-                title="Download 223-Booth Master Plan Document in English (Word .docx)"
+                title="Download 223-Booth Master Plan Document in English (PDF with Watermark)"
               >
                 <Download size={14} />
-                <span>Master Plan (English .docx)</span>
+                <span>Master Plan (English PDF)</span>
               </a>
             </div>
           </div>

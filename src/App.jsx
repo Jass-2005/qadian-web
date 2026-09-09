@@ -309,23 +309,23 @@ export default function App() {
               </a>
 
               <a 
-                href="./Qadian_Detailed_223_Boothwise_Masterplan.docx" 
-                download="Qadian_Detailed_223_Boothwise_Masterplan.docx"
+                href="./Qadian_Detailed_223_Boothwise_Masterplan.pdf" 
+                download="Qadian_Detailed_223_Boothwise_Masterplan.pdf"
                 className="pill-action-btn purple"
-                title="Download Complete 223-Booth Master Plan in English (Word .docx)"
+                title="Download Complete 223-Booth Master Plan in English (PDF with Watermark)"
               >
                 <ClipboardList size={15} />
-                <span>Master Plan (English)</span>
+                <span>Master Plan (English PDF)</span>
               </a>
 
               <a 
-                href="./Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.docx" 
-                download="Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.docx"
+                href="./Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.pdf" 
+                download="Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.pdf"
                 className="pill-action-btn amber"
-                title="Download 223 Boothwise Detailed Field Operations Plan in Punjabi (Word .docx)"
+                title="Download 223 Boothwise Detailed Field Operations Plan in Punjabi (PDF with Watermark)"
               >
                 <ClipboardList size={15} />
-                <span>223 ਬੂਥ ਮਾਸਟਰ ਪਲਾਨ (ਪੰਜਾਬੀ)</span>
+                <span>223 ਬੂਥ ਮਾਸਟਰ ਪਲਾਨ (ਪੰਜਾਬੀ PDF)</span>
               </a>
 
               <button 
