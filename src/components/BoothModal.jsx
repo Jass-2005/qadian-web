@@ -355,8 +355,8 @@ export default function BoothModal({ booth, onClose }) {
               </a>
 
               <a 
-                href="./Qadian_Detailed_223_Boothwise_Masterplan.pdf" 
-                download="Qadian_Detailed_223_Boothwise_Masterplan.pdf"
+                href="./Qadian_223_Boothwise_Detailed_Field_Operations_PURE_ENGLISH.pdf" 
+                download="Qadian_223_Boothwise_Detailed_Field_Operations_PURE_ENGLISH.pdf"
                 className="btn-download-masterplan en"
                 title="Download 223-Booth Master Plan Document in English (PDF with Watermark)"
               >

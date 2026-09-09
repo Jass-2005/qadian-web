@@ -86,8 +86,8 @@ export default function Sidebar({ activeTab, setActiveTab, isOpen, onClose }) {
           </a>
 
           <a 
-            href="./Qadian_Detailed_223_Boothwise_Masterplan.pdf" 
-            download="Qadian_Detailed_223_Boothwise_Masterplan.pdf"
+            href="./Qadian_223_Boothwise_Detailed_Field_Operations_PURE_ENGLISH.pdf" 
+            download="Qadian_223_Boothwise_Detailed_Field_Operations_PURE_ENGLISH.pdf"
             className="sidebar-nav-btn"
             title="Download Detailed 223-Booth Master Plan in English (PDF with Watermark)"
             onClick={() => { if (onClose) onClose(); }}

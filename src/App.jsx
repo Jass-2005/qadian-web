@@ -298,8 +298,8 @@ export default function App() {
               </a>
 
               <a 
-                href="./Qadian_Detailed_223_Boothwise_Masterplan.pdf" 
-                download="Qadian_Detailed_223_Boothwise_Masterplan.pdf"
+                href="./Qadian_223_Boothwise_Detailed_Field_Operations_PURE_ENGLISH.pdf" 
+                download="Qadian_223_Boothwise_Detailed_Field_Operations_PURE_ENGLISH.pdf"
                 className="pill-action-btn purple"
                 title="Download Complete 223-Booth Master Plan in English (PDF with Watermark)"
               >
