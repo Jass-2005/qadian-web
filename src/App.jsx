@@ -312,10 +312,20 @@ export default function App() {
                 href="./Qadian_Detailed_223_Boothwise_Masterplan.docx" 
                 download="Qadian_Detailed_223_Boothwise_Masterplan.docx"
                 className="pill-action-btn purple"
-                title="Download Complete 223-Booth Master Plan Document (Word .docx)"
+                title="Download Complete 223-Booth Master Plan in English (Word .docx)"
               >
                 <ClipboardList size={15} />
-                <span>Boothwise Master Plan</span>
+                <span>Master Plan (English)</span>
+              </a>
+
+              <a 
+                href="./Qadian_Detailed_223_Boothwise_Masterplan_Punjabi.docx" 
+                download="Qadian_Detailed_223_Boothwise_Masterplan_Punjabi.docx"
+                className="pill-action-btn amber"
+                title="Download Complete 223-Booth Master Plan in Punjabi (Word .docx)"
+              >
+                <ClipboardList size={15} />
+                <span>ਮਾਸਟਰ ਪਲਾਨ (ਪੰਜਾਬੀ)</span>
               </a>
 
               <button 

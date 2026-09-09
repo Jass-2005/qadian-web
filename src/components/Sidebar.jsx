@@ -89,11 +89,22 @@ export default function Sidebar({ activeTab, setActiveTab, isOpen, onClose }) {
             href="./Qadian_Detailed_223_Boothwise_Masterplan.docx" 
             download="Qadian_Detailed_223_Boothwise_Masterplan.docx"
             className="sidebar-nav-btn"
-            title="Download Detailed 223-Booth Master Plan (.docx)"
+            title="Download Detailed 223-Booth Master Plan in English (.docx)"
             onClick={() => { if (onClose) onClose(); }}
           >
             <ClipboardList size={20} />
-            <span className="sidebar-label hide-desktop">223 Master Plan</span>
+            <span className="sidebar-label hide-desktop">Master Plan (EN)</span>
+          </a>
+
+          <a 
+            href="./Qadian_Detailed_223_Boothwise_Masterplan_Punjabi.docx" 
+            download="Qadian_Detailed_223_Boothwise_Masterplan_Punjabi.docx"
+            className="sidebar-nav-btn"
+            title="Download Detailed 223-Booth Master Plan in Punjabi (.docx)"
+            onClick={() => { if (onClose) onClose(); }}
+          >
+            <ClipboardList size={20} />
+            <span className="sidebar-label hide-desktop">ਮਾਸਟਰ ਪਲਾਨ (PA)</span>
           </a>
 
           <a 

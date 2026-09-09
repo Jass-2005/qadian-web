@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { X, TrendingUp, TrendingDown, Award, Users, AlertCircle, Printer, Target, Download, FileText } from 'lucide-react';
 
 export default function BoothModal({ booth, onClose }) {
+  const [mpLang, setMpLang] = useState('EN');
   if (!booth) return null;
 
   const d22 = booth.data_2022;
@@ -252,14 +253,33 @@ export default function BoothModal({ booth, onClose }) {
                 </div>
               </div>
 
-              <span className={`masterplan-cat-badge ${
-                booth.masterplan.category_type.includes('AAP Retained') ? 'aap-won' :
-                booth.masterplan.category_type.includes('Gain') ? 'aap-gain' :
-                booth.masterplan.category_type.includes('Reversal') ? 'aap-lost' :
-                booth.masterplan.category_type.includes('INC') ? 'inc-won' : 'neutral'
-              }`}>
-                {booth.masterplan.category_type}
-              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div className="mp-lang-switch no-print">
+                  <button 
+                    className={`mp-lang-btn ${mpLang === 'EN' ? 'active' : ''}`}
+                    onClick={() => setMpLang('EN')}
+                    title="English Version"
+                  >
+                    English
+                  </button>
+                  <button 
+                    className={`mp-lang-btn ${mpLang === 'PA' ? 'active' : ''}`}
+                    onClick={() => setMpLang('PA')}
+                    title="ਪੰਜਾਬੀ ਵਰਜ਼ਨ"
+                  >
+                    ਪੰਜਾਬੀ
+                  </button>
+                </div>
+
+                <span className={`masterplan-cat-badge ${
+                  booth.masterplan.category_type.includes('AAP Retained') ? 'aap-won' :
+                  booth.masterplan.category_type.includes('Gain') ? 'aap-gain' :
+                  booth.masterplan.category_type.includes('Reversal') ? 'aap-lost' :
+                  booth.masterplan.category_type.includes('INC') ? 'inc-won' : 'neutral'
+                }`}>
+                  {booth.masterplan.category_type}
+                </span>
+              </div>
             </div>
 
             {/* Quick Metrics Strip */}
@@ -284,36 +304,54 @@ export default function BoothModal({ booth, onClose }) {
 
             {/* Field Status Diagnosis */}
             <div className="masterplan-status-card">
-              <div className="mp-card-label">Field Diagnosis & Ground Reality</div>
-              <p className="mp-status-text">{booth.masterplan.detailed_status}</p>
+              <div className="mp-card-label">
+                <span>{mpLang === 'PA' ? 'ਮੈਦਾਨੀ ਸਥਿਤੀ ਅਤੇ ਵਿਸ਼ਲੇਸ਼ਣ' : 'Field Diagnosis & Ground Reality'}</span>
+              </div>
+              <p className={`mp-status-text ${mpLang === 'PA' ? 'punjabi-font' : ''}`}>
+                {mpLang === 'PA' && booth.masterplan.detailed_status_pa
+                  ? booth.masterplan.detailed_status_pa
+                  : booth.masterplan.detailed_status}
+              </p>
             </div>
 
             {/* Action Roadmap */}
             <div className="masterplan-actions-card">
               <div className="mp-card-label">
-                <span>Recommended Step-by-Step Field Actions</span>
-                <span className="mp-steps-count">({booth.masterplan.action_steps.length} Steps)</span>
+                <span>{mpLang === 'PA' ? 'ਸਿਫਾਰਸ਼ ਕੀਤੀਆਂ ਮੈਦਾਨੀ ਕਾਰਵਾਈਆਂ' : 'Recommended Step-by-Step Field Actions'}</span>
+                <span className="mp-steps-count">
+                  ({(mpLang === 'PA' && booth.masterplan.action_steps_pa ? booth.masterplan.action_steps_pa : booth.masterplan.action_steps).length} Steps)
+                </span>
               </div>
               <div className="mp-steps-list">
-                {booth.masterplan.action_steps.map((step, idx) => (
+                {(mpLang === 'PA' && booth.masterplan.action_steps_pa ? booth.masterplan.action_steps_pa : booth.masterplan.action_steps).map((step, idx) => (
                   <div key={idx} className="mp-step-item">
                     <span className="mp-step-num">{idx + 1}</span>
-                    <span className="mp-step-text">{step}</span>
+                    <span className={`mp-step-text ${mpLang === 'PA' ? 'punjabi-font' : ''}`}>{step}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Download Complete Master Plan Docx */}
+            {/* Download Complete Master Plan Docx (English & Punjabi) */}
             <div className="masterplan-download-row no-print">
               <a 
                 href="./Qadian_Detailed_223_Boothwise_Masterplan.docx" 
                 download="Qadian_Detailed_223_Boothwise_Masterplan.docx"
-                className="btn-download-masterplan"
-                title="Download the Complete 223-Booth Master Plan Document (Word .docx)"
+                className="btn-download-masterplan en"
+                title="Download 223-Booth Master Plan Document in English (Word .docx)"
               >
                 <Download size={14} />
-                <span>Download Complete 223-Booth Master Plan (.docx)</span>
+                <span>Master Plan (English .docx)</span>
+              </a>
+
+              <a 
+                href="./Qadian_Detailed_223_Boothwise_Masterplan_Punjabi.docx" 
+                download="Qadian_Detailed_223_Boothwise_Masterplan_Punjabi.docx"
+                className="btn-download-masterplan pa"
+                title="Download 223-Booth Master Plan Document in Punjabi (Word .docx)"
+              >
+                <Download size={14} />
+                <span>ਮਾਸਟਰ ਪਲਾਨ (ਪੰਜਾਬੀ .docx)</span>
               </a>
             </div>
           </div>

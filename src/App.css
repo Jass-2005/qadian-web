@@ -432,6 +432,18 @@
   transform: translateY(-1px);
 }
 
+.pill-action-btn.amber {
+  background: #d97706;
+  color: #ffffff;
+  border: 1px solid #b45309;
+  box-shadow: 0 1px 3px rgba(217, 119, 6, 0.2);
+}
+
+.pill-action-btn.amber:hover {
+  background: #b45309;
+  transform: translateY(-1px);
+}
+
 .pill-action-btn.outline {
   background: var(--bg-surface);
   color: var(--text-primary);
@@ -1932,9 +1944,39 @@
   flex: 1;
 }
 
+/* Masterplan Language Switcher */
+.mp-lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  padding: 2px;
+}
+
+.mp-lang-btn {
+  padding: 3px 9px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.mp-lang-btn.active {
+  background: var(--bg-surface-elevated);
+  color: var(--text-primary);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
 .masterplan-download-row {
   display: flex;
-  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
   padding-top: 4px;
 }
 
@@ -1953,11 +1995,27 @@
   text-decoration: none;
   cursor: pointer;
   transition: all 0.15s ease;
-  width: 100%;
+  flex: 1;
+  min-width: 180px;
 }
 
-.btn-download-masterplan:hover {
+.btn-download-masterplan.en {
+  background: #7c3aed;
+  border-color: #6d28d9;
+}
+
+.btn-download-masterplan.en:hover {
   background: #6d28d9;
+  transform: translateY(-1px);
+}
+
+.btn-download-masterplan.pa {
+  background: #d97706;
+  border-color: #b45309;
+}
+
+.btn-download-masterplan.pa:hover {
+  background: #b45309;
   transform: translateY(-1px);
 }
 
