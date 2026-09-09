@@ -19,13 +19,14 @@
   --text-muted: #64748b;
 
   /* Party Colors in Dark Mode */
-  --color-aap: #fbbf24;
-  --color-aap-soft: rgba(251, 191, 36, 0.12);
-  --color-aap-border: rgba(251, 191, 36, 0.35);
+  --color-aap: #38bdf8;          /* AAP Vibrant Blue */
+  --color-aap-yellow: #facc15;   /* AAP Yellow Accent */
+  --color-aap-soft: rgba(56, 189, 248, 0.14);
+  --color-aap-border: rgba(56, 189, 248, 0.35);
 
-  --color-inc: #34d399;
-  --color-inc-soft: rgba(52, 211, 153, 0.12);
-  --color-inc-border: rgba(52, 211, 153, 0.35);
+  --color-inc: #fb923c;          /* INC Saffron Orange */
+  --color-inc-soft: rgba(251, 146, 60, 0.14);
+  --color-inc-border: rgba(251, 146, 60, 0.35);
 
   --color-bjp: #fb923c;
   --color-bjp-soft: rgba(251, 146, 60, 0.12);
@@ -99,13 +100,14 @@
   --text-muted: #64748b;
 
   /* Party Colors in Light Mode - High Contrast Legibility */
-  --color-aap: #b45309;       /* Deep warm gold */
-  --color-aap-soft: #fef3c7;
-  --color-aap-border: #fcd34d;
+  --color-aap: #0284c7;          /* AAP Vibrant Blue */
+  --color-aap-yellow: #ca8a04;   /* AAP Golden Yellow */
+  --color-aap-soft: #f0f9ff;
+  --color-aap-border: #bae6fd;
 
-  --color-inc: #047857;       /* Deep rich emerald */
-  --color-inc-soft: #d1fae5;
-  --color-inc-border: #6ee7b7;
+  --color-inc: #ea580c;          /* INC Saffron Orange */
+  --color-inc-soft: #fff7ed;
+  --color-inc-border: #fed7aa;
 
   --color-bjp: #c2410c;       /* Saffron dark orange */
   --color-bjp-soft: #ffedd5;

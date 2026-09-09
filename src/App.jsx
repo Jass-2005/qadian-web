@@ -6,6 +6,7 @@ import Header from './components/Header';
 import PartyHub from './components/PartyHub';
 import BoothGrid from './components/BoothGrid';
 import BoothModal from './components/BoothModal';
+import CustomDropdown from './components/CustomDropdown';
 import { 
   Search, 
   RotateCcw, 
@@ -165,6 +166,23 @@ export default function App() {
     return result;
   }, [booths, selectedParty, partyFilter, searchQuery, sortBy]);
 
+  // Sort options for CustomDropdown
+  const sortOptions = useMemo(() => {
+    const opts = [
+      { value: 'BOOTH_ASC', label: 'Booth No. (1 → 223)' },
+      { value: 'BOOTH_DESC', label: 'Booth No. (223 → 1)' },
+      { value: 'TURNOUT_DESC', label: 'Highest 2024 Turnout' },
+      { value: 'MARGIN_DESC', label: 'Highest 2024 Margin' },
+    ];
+    if (selectedParty !== 'ALL') {
+      opts.push(
+        { value: 'VOTES_DESC', label: `Highest ${selectedParty} Votes` },
+        { value: 'VOTES_ASC', label: `Lowest ${selectedParty} Votes` }
+      );
+    }
+    return opts;
+  }, [selectedParty]);
+
   // Reset all filters
   const handleResetToCompleteList = () => {
     setSelectedParty('ALL');
@@ -310,30 +328,30 @@ export default function App() {
               </div>
             </div>
 
-            {/* KPI 3: Congress (INC) */}
-            <div className="dsidein-kpi-card">
+            {/* KPI 3: Congress (INC) - Saffron Orange */}
+            <div className="dsidein-kpi-card inc-kpi">
               <div className="kpi-top-row">
-                <div className="kpi-icon-pill icon-green">
+                <div className="kpi-icon-pill icon-orange">
                   <BarChart3 size={18} />
                 </div>
               </div>
               <div className="kpi-label">CONGRESS (INC)</div>
-              <div className="kpi-value text-green">41,806</div>
-              <div className="kpi-sub-pill text-green">
+              <div className="kpi-value text-orange">41,806</div>
+              <div className="kpi-sub-pill text-orange">
                 ● 111 Wins (35.1% Share | +3,152 Lead)
               </div>
             </div>
 
-            {/* KPI 4: AAP */}
-            <div className="dsidein-kpi-card">
+            {/* KPI 4: AAP - Vibrant Blue & Yellow */}
+            <div className="dsidein-kpi-card aap-kpi">
               <div className="kpi-top-row">
-                <div className="kpi-icon-pill icon-purple">
+                <div className="kpi-icon-pill icon-blue">
                   <CheckCircle2 size={18} />
                 </div>
               </div>
               <div className="kpi-label">AAP (KALSI)</div>
-              <div className="kpi-value text-purple">38,654</div>
-              <div className="kpi-sub-pill text-purple">
+              <div className="kpi-value text-blue">38,654</div>
+              <div className="kpi-sub-pill text-blue">
                 ● 81 Wins (32.5% Share | 63 Gains)
               </div>
             </div>
@@ -406,23 +424,12 @@ export default function App() {
                   <span>Export PDF</span>
                 </button>
 
-                <select
-                  className="sort-select"
+                <CustomDropdown
                   value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  aria-label="Sort Booths"
-                >
-                  <option value="BOOTH_ASC">Sort: Booth No. (1 → 223)</option>
-                  <option value="BOOTH_DESC">Sort: Booth No. (223 → 1)</option>
-                  <option value="TURNOUT_DESC">Highest 2024 Turnout</option>
-                  <option value="MARGIN_DESC">Highest 2024 Margin</option>
-                  {selectedParty !== 'ALL' && (
-                    <>
-                      <option value="VOTES_DESC">Highest {selectedParty} Votes</option>
-                      <option value="VOTES_ASC">Lowest {selectedParty} Votes</option>
-                    </>
-                  )}
-                </select>
+                  onChange={setSortBy}
+                  options={sortOptions}
+                  label="Sort order"
+                />
               </div>
             </div>
 

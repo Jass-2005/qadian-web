@@ -721,55 +721,124 @@
 .party-pill-tabs {
   display: inline-flex;
   background: var(--bg-surface);
-  padding: 3px;
+  padding: 4px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border-subtle);
-  gap: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  gap: 4px;
 }
 
 .party-tab-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 12px;
-  font-size: 0.78125rem;
+  gap: 7px;
+  padding: 6px 14px;
+  font-size: 0.8125rem;
   font-weight: 600;
   border-radius: var(--radius-full);
   border: none;
   background: transparent;
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .party-tab-pill:hover {
   color: var(--text-primary);
+  background: var(--bg-surface-elevated);
 }
 
+/* Complete List Active: Neutral Dark/Indigo */
 .party-tab-pill.active.all {
+  background: #1e293b;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(30, 41, 59, 0.25);
+}
+
+[data-theme="dark"] .party-tab-pill.active.all {
+  background: #334155;
+  color: #f8fafc;
+}
+
+/* AAP Active: AAP Vibrant Blue with Yellow Badge */
+.party-tab-pill.active.aap {
+  background: #0284c7;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.35);
+}
+
+[data-theme="dark"] .party-tab-pill.active.aap {
   background: #0284c7;
   color: #ffffff;
 }
 
-.party-tab-pill.active.aap {
+/* INC Active: INC Saffron Orange */
+.party-tab-pill.active.inc {
+  background: #ea580c;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.35);
+}
+
+[data-theme="dark"] .party-tab-pill.active.inc {
   background: #ea580c;
   color: #ffffff;
 }
 
-.party-tab-pill.active.inc {
+/* Color Indicators */
+.party-color-indicator {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.aap-indicator {
   background: #0284c7;
-  color: #ffffff;
+  border: 1.5px solid #facc15;
+}
+
+.inc-indicator {
+  background: #ea580c;
+  border: 1.5px solid #ffffff;
+}
+
+.party-tab-text {
+  font-weight: 700;
 }
 
 .tab-pill-count {
   font-size: 0.6875rem;
-  padding: 1px 6px;
+  padding: 1px 7px;
   border-radius: var(--radius-full);
-  background: rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.1);
+  font-weight: 700;
 }
 
-.party-tab-pill.active .tab-pill-count {
-  background: rgba(255, 255, 255, 0.25);
+.party-tab-pill.active.all .tab-pill-count {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+/* AAP Badge: Vibrant Yellow Accent */
+.tab-pill-count.aap-badge {
+  background: #fef08a;
+  color: #713f12;
+}
+
+.party-tab-pill.active.aap .tab-pill-count.aap-badge {
+  background: #facc15;
+  color: #78350f;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+/* INC Badge: Crisp White / Saffron Accent */
+.tab-pill-count.inc-badge {
+  background: #ffedd5;
+  color: #9a3412;
+}
+
+.party-tab-pill.active.inc .tab-pill-count.inc-badge {
+  background: rgba(255, 255, 255, 0.28);
   color: #ffffff;
 }
 
@@ -787,10 +856,34 @@
   border-radius: var(--radius-md);
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
+  font-weight: 500;
 }
 
 .vital-chip.lead-inc {
   color: var(--color-inc);
+  font-weight: 600;
+}
+
+.vital-chip.aap-vital {
+  border-color: rgba(2, 132, 199, 0.3);
+  color: #0284c7;
+  background: #eff6ff;
+}
+
+[data-theme="dark"] .vital-chip.aap-vital {
+  background: rgba(2, 132, 199, 0.15);
+  color: #38bdf8;
+}
+
+.vital-chip.inc-vital {
+  border-color: rgba(234, 88, 12, 0.3);
+  color: #ea580c;
+  background: #fff7ed;
+}
+
+[data-theme="dark"] .vital-chip.inc-vital {
+  background: rgba(234, 88, 12, 0.15);
+  color: #fb923c;
 }
 
 .vital-chip.gain {
@@ -801,66 +894,138 @@
   color: var(--status-lost);
 }
 
-/* Category Filter Pills */
+/* Enhanced Category Filter Pills */
 .category-filter-pills {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
+  padding: 2px 0;
+}
+
+.filter-pill-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-muted);
+}
+
+.filter-header-icon {
+  opacity: 0.7;
 }
 
 .filter-group-label {
   font-size: 0.6875rem;
   font-weight: 800;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   color: var(--text-muted);
 }
 
 .cat-pill-group {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   flex-wrap: wrap;
 }
 
 .cat-pill-btn {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 4px 11px;
-  font-size: 0.75rem;
+  gap: 6px;
+  padding: 5px 13px;
+  font-size: 0.78125rem;
   font-weight: 600;
   border-radius: var(--radius-full);
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.16s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
 }
 
 .cat-pill-btn:hover {
   background: var(--bg-surface-hover);
   border-color: var(--border-medium);
   color: var(--text-primary);
-}
-
-.cat-pill-btn.active {
-  background: #0f172a;
-  color: #ffffff;
-  border-color: #0f172a;
-}
-
-[data-theme="dark"] .cat-pill-btn.active {
-  background: #38bdf8;
-  color: #0f172a;
-  border-color: #38bdf8;
+  transform: translateY(-1px);
 }
 
 .cat-pill-num {
   font-size: 0.6875rem;
-  opacity: 0.8;
   font-weight: 700;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  background: rgba(0, 0, 0, 0.08);
   margin-left: 2px;
+}
+
+[data-theme="dark"] .cat-pill-num {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Filter Button Active States */
+.cat-pill-btn.active.default-active {
+  background: #1e293b;
+  color: #ffffff;
+  border-color: #1e293b;
+  box-shadow: 0 2px 6px rgba(30, 41, 59, 0.25);
+}
+
+[data-theme="dark"] .cat-pill-btn.active.default-active {
+  background: #334155;
+  border-color: #334155;
+  color: #ffffff;
+}
+
+/* AAP Active Filter: AAP Vibrant Blue + Yellow Count */
+.cat-pill-btn.active.aap-active {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.35);
+}
+
+.cat-pill-btn.active.aap-active .cat-pill-num {
+  background: #facc15;
+  color: #78350f;
+}
+
+/* INC Active Filter: INC Saffron Orange */
+.cat-pill-btn.active.inc-active {
+  background: #ea580c;
+  color: #ffffff;
+  border-color: #ea580c;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.35);
+}
+
+.cat-pill-btn.active.inc-active .cat-pill-num {
+  background: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+}
+
+.cat-pill-btn.active.bjp-active {
+  background: #c2410c;
+  color: #ffffff;
+  border-color: #c2410c;
+}
+
+.cat-pill-btn.active.sad-active {
+  background: #1d4ed8;
+  color: #ffffff;
+  border-color: #1d4ed8;
+}
+
+.inc-text { color: #ea580c; }
+.aap-text { color: #0284c7; }
+.bjp-text { color: #c2410c; }
+.sad-text { color: #1d4ed8; }
+
+.cat-pill-btn.active .inc-text,
+.cat-pill-btn.active .aap-text,
+.cat-pill-btn.active .bjp-text,
+.cat-pill-btn.active .sad-text {
+  color: #ffffff;
 }
 
 /* Toolbar inside Registry Card */
@@ -893,13 +1058,14 @@
 
 .toolbar-search-input {
   width: 100%;
-  padding: 6px 12px 6px 32px;
+  padding: 7px 12px 7px 32px;
   font-size: 0.8125rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-subtle);
   background: var(--bg-surface-elevated);
   color: var(--text-primary);
   outline: none;
+  transition: border-color 0.15s ease;
 }
 
 .toolbar-search-input:focus {
@@ -909,15 +1075,15 @@
 .toolbar-controls {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .btn-toolbar-pdf {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
-  font-size: 0.75rem;
+  padding: 7px 14px;
+  font-size: 0.8125rem;
   font-weight: 600;
   border-radius: var(--radius-md);
   background: var(--bg-surface-elevated);
@@ -932,6 +1098,141 @@
   color: var(--text-primary);
   border-color: var(--border-medium);
 }
+
+/* =========================================================
+   CUSTOM DROPDOWN (Modern, Accessible & Elevated)
+========================================================= */
+.custom-dropdown-container {
+  position: relative;
+  user-select: none;
+}
+
+.custom-dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.custom-dropdown-trigger:hover {
+  background: var(--bg-surface-hover);
+  border-color: var(--border-medium);
+}
+
+.custom-dropdown-trigger.open {
+  border-color: #0284c7;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
+}
+
+.dropdown-trigger-icon {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-trigger-text {
+  white-space: nowrap;
+}
+
+.dropdown-chevron {
+  color: var(--text-muted);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dropdown-chevron.rotate {
+  transform: rotate(180deg);
+}
+
+.custom-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 230px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
+  padding: 6px;
+  z-index: 60;
+  animation: dropdownFadeIn 0.15s ease;
+}
+
+@keyframes dropdownFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-menu-header {
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  padding: 6px 10px 4px 10px;
+  text-transform: uppercase;
+}
+
+.custom-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color 0.12s ease;
+}
+
+.custom-dropdown-item:hover {
+  background: var(--bg-surface-elevated);
+}
+
+.custom-dropdown-item.selected {
+  background: #eff6ff;
+  color: #0284c7;
+  font-weight: 700;
+}
+
+[data-theme="dark"] .custom-dropdown-item.selected {
+  background: rgba(2, 132, 199, 0.15);
+  color: #38bdf8;
+}
+
+.dropdown-item-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropdown-opt-icon {
+  color: var(--text-muted);
+}
+
+.custom-dropdown-item.selected .dropdown-opt-icon {
+  color: #0284c7;
+}
+
+[data-theme="dark"] .custom-dropdown-item.selected .dropdown-opt-icon {
+  color: #38bdf8;
+}
+
+.dropdown-item-check {
+  color: #0284c7;
+}
+
+[data-theme="dark"] .dropdown-item-check {
+  color: #38bdf8;
+}
+
 
 
 /* =========================================================
@@ -1146,11 +1447,11 @@
   border-radius: var(--radius-sm);
   display: inline-block;
 }
-.mini-winner.INC { background: var(--color-inc-soft); color: var(--color-inc); }
-.mini-winner.AAP { background: var(--color-aap-soft); color: var(--color-aap); }
-.mini-winner.BJP { background: var(--color-bjp-soft); color: var(--color-bjp); }
-.mini-winner.SAD { background: var(--color-sad-soft); color: var(--color-sad); }
-.mini-winner.NA { background: var(--border-subtle); color: var(--text-muted); }
+.mini-winner.INC { background: var(--color-inc-soft); color: var(--color-inc); border: 1px solid var(--color-inc-border); }
+.mini-winner.AAP { background: var(--color-aap-soft); color: var(--color-aap); border: 1px solid var(--color-aap-border); }
+.mini-winner.BJP { background: var(--color-bjp-soft); color: var(--color-bjp); border: 1px solid var(--color-bjp-border); }
+.mini-winner.SAD { background: var(--color-sad-soft); color: var(--color-sad); border: 1px solid var(--color-sad-border); }
+.mini-winner.NA { background: var(--border-subtle); color: var(--text-muted); border: 1px solid var(--border-subtle); }
 
 .cat-pill {
   font-size: 0.7rem;
