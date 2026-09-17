@@ -60,48 +60,54 @@ export default function App() {
 
   const { summary, booths } = electionData;
 
-  // Pre-calculated stats for AAP & INC
+  // Dynamic stats calculation for all parties directly from verified data
   const partyStats = useMemo(() => {
-    const sortedAap = [...booths].sort((a, b) => b.data_2024.aap - a.data_2024.aap);
-    const sortedInc = [...booths].sort((a, b) => b.data_2024.inc - a.data_2024.inc);
+    const sortedAap = [...booths].sort((a, b) => (b.data_2024.aap || 0) - (a.data_2024.aap || 0));
+    const sortedInc = [...booths].sort((a, b) => (b.data_2024.inc || 0) - (a.data_2024.inc || 0));
+    const sortedSad = [...booths].sort((a, b) => (b.data_2024.sad || 0) - (a.data_2024.sad || 0));
+    const sortedBjp = [...booths].sort((a, b) => (b.data_2024.bjp || 0) - (a.data_2024.bjp || 0));
+
+    const calcParty = (pCode, cand22, cand24, sortedList) => {
+      const pKey = pCode.toLowerCase();
+      const v22 = summary?.party_votes_2022?.[pCode] || (pCode === 'BJP' ? 0 : 0);
+      const s22 = summary?.party_shares_2022?.[pCode] || 0.0;
+      const v24 = summary?.party_votes_2024?.[pCode] || 0;
+      const s24 = summary?.party_shares_2024?.[pCode] || 0.0;
+      const diff = v24 - v22;
+      const swing = Number((s24 - s22).toFixed(2));
+
+      return {
+        code: pCode,
+        candidate_2022: cand22,
+        candidate_2024: cand24,
+        votes_2022: v22,
+        share_2022: s22,
+        votes_2024: v24,
+        share_2024: s24,
+        vote_diff: diff,
+        swing: swing,
+        booths_won_2022: summary?.booths_won_2022?.[pCode] || 0,
+        booths_won_2024: summary?.booths_won_2024?.[pCode] || 0,
+        won_both_count: booths.filter(b => b.categories?.[pCode] === 'WON_BOTH').length,
+        gained_count: booths.filter(b => b.categories?.[pCode] === 'GAINED').length,
+        lost_24_count: booths.filter(b => b.categories?.[pCode] === 'LOST_24').length,
+        weak_count: booths.filter(b => b.categories?.[pCode] === 'WEAK').length,
+        lost_both_count: booths.filter(b => b.categories?.[pCode] === 'LOST_BOTH').length,
+        top_booth: {
+          no: sortedList[0]?.booth_no || 0,
+          name: sortedList[0]?.village_english || '',
+          votes: sortedList[0]?.data_2024[pKey] || 0
+        }
+      };
+    };
 
     return {
-      AAP: {
-        votes_2022: 41125,
-        share_2022: 31.30,
-        votes_2024: 38654,
-        share_2024: 32.48,
-        vote_diff: -2471,
-        won_both_count: 18,
-        gained_count: 63,
-        lost_24_count: 39,
-        weak_count: 31,
-        lost_both_count: 103,
-        top_booth: {
-          no: sortedAap[0].booth_no,
-          name: sortedAap[0].village_english,
-          votes: sortedAap[0].data_2024.aap
-        }
-      },
-      INC: {
-        votes_2022: 48116,
-        share_2022: 36.61,
-        votes_2024: 41806,
-        share_2024: 35.13,
-        vote_diff: -6310,
-        won_both_count: 69,
-        gained_count: 42,
-        lost_24_count: 56,
-        weak_count: 21,
-        lost_both_count: 56,
-        top_booth: {
-          no: sortedInc[0].booth_no,
-          name: sortedInc[0].village_english,
-          votes: sortedInc[0].data_2024.inc
-        }
-      }
+      AAP: calcParty('AAP', 'Jagroop Singh Sekhwan', 'Amansher Singh Shery Kalsi', sortedAap),
+      INC: calcParty('INC', 'Partap Singh Bajwa', 'Sukhjinder Singh Randhawa', sortedInc),
+      SAD: calcParty('SAD', 'Guriqbal Singh Mahal', 'Dr. Daljit Singh Cheema', sortedSad),
+      BJP: calcParty('BJP', 'Did Not Contest', 'Dinesh Singh Babbu', sortedBjp)
     };
-  }, [booths]);
+  }, [booths, summary]);
 
   // Filtering & Sorting
   const filteredBooths = useMemo(() => {
@@ -128,15 +134,19 @@ export default function App() {
         result = result.filter(b => b.data_2024.winner_party === 'BJP');
       } else if (partyFilter === 'SAD_WINS') {
         result = result.filter(b => b.data_2024.winner_party === 'SAD');
+      } else if (partyFilter === 'FLIPPED_ONLY') {
+        result = result.filter(b => b.comparison.is_flip);
+      } else if (partyFilter === 'RETAINED_ONLY') {
+        result = result.filter(b => !b.comparison.is_flip);
       }
     } else {
-      // Party-specific mode (AAP or INC)
+      // Party-specific mode (AAP, INC, SAD, BJP)
       const pKey = selectedParty.toLowerCase();
       if (partyFilter !== 'ALL') {
         result = result.filter(b => {
           const w22 = b.data_2022.winner_party;
           const w24 = b.data_2024.winner_party;
-          const pct24 = b.data_2024[`${pKey}_pct`];
+          const pct24 = b.data_2024[`${pKey}_pct`] || 0;
 
           if (partyFilter === 'WON_BOTH') {
             return w22 === selectedParty && w24 === selectedParty;
@@ -379,10 +389,10 @@ export default function App() {
                   <CheckCircle2 size={18} />
                 </div>
               </div>
-              <div className="kpi-label">AAP (KALSI)</div>
+              <div className="kpi-label">AAP (SHERY KALSI)</div>
               <div className="kpi-value text-blue">38,654</div>
               <div className="kpi-sub-pill text-blue">
-                ● 81 Wins (32.5% Share | 63 Gains)
+                ● 81 Wins (32.5% Share | +40 Booth Gain)
               </div>
             </div>
           </section>

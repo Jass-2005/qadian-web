@@ -97,7 +97,7 @@ export default function BoothModal({ booth, onClose }) {
             {/* INC Bar */}
             <div className="vote-bar-wrap">
               <div className="vote-bar-label">
-                <span>INC (Bajwa)</span>
+                <span>INC (Partap Singh Bajwa)</span>
                 <span><strong>{d22.inc}</strong> ({d22.inc_pct}%)</span>
               </div>
               <div className="vote-bar-track">
@@ -105,10 +105,21 @@ export default function BoothModal({ booth, onClose }) {
               </div>
             </div>
 
+            {/* SAD Bar */}
+            <div className="vote-bar-wrap">
+              <div className="vote-bar-label">
+                <span>SAD (Guriqbal Singh Mahal)</span>
+                <span><strong>{d22.sad}</strong> ({d22.sad_pct}%)</span>
+              </div>
+              <div className="vote-bar-track">
+                <div className="vote-bar-fill" style={{ width: getWidth(d22.sad, d22.total), background: 'var(--color-sad, #7c3aed)' }} />
+              </div>
+            </div>
+
             {/* AAP Bar */}
             <div className="vote-bar-wrap">
               <div className="vote-bar-label">
-                <span>AAP (Mahal)</span>
+                <span>AAP (Jagroop Singh Sekhwan)</span>
                 <span><strong>{d22.aap}</strong> ({d22.aap_pct}%)</span>
               </div>
               <div className="vote-bar-track">
@@ -116,16 +127,12 @@ export default function BoothModal({ booth, onClose }) {
               </div>
             </div>
 
-            {/* Sekhwan Bar (2022 Assembly) */}
-            <div className="vote-bar-wrap">
-              <div className="vote-bar-label">
-                <span>Sekhwan</span>
-                <span><strong>{d22.sad}</strong> ({d22.sad_pct}%)</span>
+            {/* Others Bar (2022) */}
+            {d22.baaki > 0 && (
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px' }}>
+                Others / Baaki: {d22.baaki} votes
               </div>
-              <div className="vote-bar-track">
-                <div className="vote-bar-fill" style={{ width: getWidth(d22.sad, d22.total), background: 'var(--color-sekhwan, #7c3aed)' }} />
-              </div>
-            </div>
+            )}
 
             {/* Total 2022 */}
             <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '8px', marginTop: '12px', fontSize: '0.8125rem', color: 'var(--text-secondary)', display: 'flex', justifyContent: 'space-between' }}>
@@ -149,7 +156,7 @@ export default function BoothModal({ booth, onClose }) {
             {/* INC Bar */}
             <div className="vote-bar-wrap">
               <div className="vote-bar-label">
-                <span>INC (Randhawa)</span>
+                <span>INC (Sukhjinder Randhawa)</span>
                 <span><strong>{d24.inc}</strong> ({d24.inc_pct}%)</span>
               </div>
               <div className="vote-bar-track">
@@ -160,7 +167,7 @@ export default function BoothModal({ booth, onClose }) {
             {/* AAP Bar */}
             <div className="vote-bar-wrap">
               <div className="vote-bar-label">
-                <span>AAP (Kalsi)</span>
+                <span>AAP (Shery Kalsi)</span>
                 <span><strong>{d24.aap}</strong> ({d24.aap_pct}%)</span>
               </div>
               <div className="vote-bar-track">
@@ -171,7 +178,7 @@ export default function BoothModal({ booth, onClose }) {
             {/* BJP Bar */}
             <div className="vote-bar-wrap">
               <div className="vote-bar-label">
-                <span>BJP (Babbu)</span>
+                <span>BJP (Dinesh Babbu)</span>
                 <span><strong>{d24.bjp}</strong> ({d24.bjp_pct}%)</span>
               </div>
               <div className="vote-bar-track">
@@ -182,7 +189,7 @@ export default function BoothModal({ booth, onClose }) {
             {/* SAD Bar (2024 Parliamentary) */}
             <div className="vote-bar-wrap">
               <div className="vote-bar-label">
-                <span>SAD (Cheema)</span>
+                <span>SAD (Dr. Daljit Cheema)</span>
                 <span><strong>{d24.sad}</strong> ({d24.sad_pct}%)</span>
               </div>
               <div className="vote-bar-track">
@@ -208,18 +215,11 @@ export default function BoothModal({ booth, onClose }) {
           <h4 style={{ fontSize: '0.875rem', fontWeight: 700, marginBottom: '8px', color: 'var(--text-primary)' }}>
             Turnout & Vote Shift Analysis
           </h4>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px', fontSize: '0.8125rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '12px', fontSize: '0.8125rem' }}>
             <div>
               <span style={{ color: 'var(--text-muted)' }}>Turnout Shift:</span>
               <div style={{ fontWeight: 700, color: comp.turnout_diff >= 0 ? 'var(--color-gain)' : 'var(--color-loss)' }}>
                 {comp.turnout_diff > 0 ? `+${comp.turnout_diff}` : comp.turnout_diff} ({comp.turnout_pct}%)
-              </div>
-            </div>
-
-            <div>
-              <span style={{ color: 'var(--text-muted)' }}>INC Swing:</span>
-              <div style={{ fontWeight: 700, color: comp.inc_swing >= 0 ? 'var(--color-gain)' : 'var(--color-loss)' }}>
-                {comp.inc_swing >= 0 ? `+${comp.inc_swing}%` : `${comp.inc_swing}%`}
               </div>
             </div>
 
@@ -231,9 +231,23 @@ export default function BoothModal({ booth, onClose }) {
             </div>
 
             <div>
+              <span style={{ color: 'var(--text-muted)' }}>INC Swing:</span>
+              <div style={{ fontWeight: 700, color: comp.inc_swing >= 0 ? 'var(--color-gain)' : 'var(--color-loss)' }}>
+                {comp.inc_swing >= 0 ? `+${comp.inc_swing}%` : `${comp.inc_swing}%`}
+              </div>
+            </div>
+
+            <div>
+              <span style={{ color: 'var(--text-muted)' }}>SAD Swing:</span>
+              <div style={{ fontWeight: 700, color: comp.sad_swing >= 0 ? 'var(--color-gain)' : 'var(--color-loss)' }}>
+                {comp.sad_swing >= 0 ? `+${comp.sad_swing}%` : `${comp.sad_swing}%`}
+              </div>
+            </div>
+
+            <div>
               <span style={{ color: 'var(--text-muted)' }}>BJP Impact:</span>
               <div style={{ fontWeight: 700, color: 'var(--color-bjp)' }}>
-                {comp.bjp_gain}% ({d24.bjp} votes)
+                +{comp.bjp_gain}% ({d24.bjp}v)
               </div>
             </div>
           </div>
@@ -315,30 +329,27 @@ export default function BoothModal({ booth, onClose }) {
                 <span>{mpLang === 'PA' ? 'ਮੈਦਾਨੀ ਸਥਿਤੀ ਅਤੇ ਵਿਸ਼ਲੇਸ਼ਣ' : 'Field Diagnosis & Ground Reality'}</span>
               </div>
               <p className={`mp-status-text ${mpLang === 'PA' ? 'punjabi-font' : ''}`}>
-                {mpLang === 'PA' && booth.masterplan.detailed_status_pa
-                  ? booth.masterplan.detailed_status_pa
-                  : booth.masterplan.detailed_status}
+                {mpLang === 'PA'
+                  ? (booth.masterplan.detailed_situation_pa || booth.masterplan.detailed_status_pa || booth.masterplan.detailed_status)
+                  : (booth.masterplan.detailed_situation_en || booth.masterplan.detailed_status || booth.masterplan.detailed_situation_pa)}
               </p>
             </div>
 
             {/* Action Roadmap */}
             <div className="masterplan-actions-card">
               <div className="mp-card-label">
-                <span>{mpLang === 'PA' ? 'ਸਿਫਾਰਸ਼ ਕੀਤੀਆਂ ਮੈਦਾਨੀ ਕਾਰਵਾਈਆਂ (Field Operations)' : 'Recommended Step-by-Step Field Actions'}</span>
-                <span className="mp-steps-count">
-                  ({(mpLang === 'PA' && booth.masterplan.action_steps_pa ? booth.masterplan.action_steps_pa : booth.masterplan.action_steps || []).length} Steps)
-                </span>
+                <span>{mpLang === 'PA' ? '90-ਦਿਨਾ ਕਾਰਵਾਈ ਯੋਜਨਾ (ਕਦਮ ਦਰ ਕਦਮ)' : '90-Day Tactical Ground Steps'}</span>
               </div>
               <div className="mp-steps-list">
-                {(mpLang === 'PA' && booth.masterplan.action_steps_pa ? booth.masterplan.action_steps_pa : booth.masterplan.action_steps || []).map((step, idx) => {
-                  const cleanStep = typeof step === 'string' ? step.replace(/^\d+[\)\.]\s*/, '') : step;
-                  return (
-                    <div key={idx} className="mp-step-item">
-                      <span className="mp-step-num">{idx + 1}</span>
-                      <span className={`mp-step-text ${mpLang === 'PA' ? 'punjabi-font' : ''}`}>{cleanStep}</span>
-                    </div>
-                  );
-                })}
+                {((mpLang === 'PA' && (booth.masterplan.action_steps_pa || booth.masterplan.action_steps))
+                  ? (booth.masterplan.action_steps_pa || booth.masterplan.action_steps)
+                  : (booth.masterplan.action_steps_en || booth.masterplan.action_steps || booth.masterplan.action_steps_pa)
+                )?.map((step, idx) => (
+                  <div key={idx} className="mp-step-item">
+                    <span className="mp-step-num">{idx + 1}</span>
+                    <span className={`mp-step-text ${mpLang === 'PA' ? 'punjabi-font' : ''}`}>{step}</span>
+                  </div>
+                ))}
               </div>
             </div>
 

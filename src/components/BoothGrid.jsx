@@ -33,13 +33,15 @@ export default function BoothGrid({
           <span className="list-filter-label">
             {isAllMode && (
               partyFilter === 'ALL' ? 'Complete Master List (All 223 Booths)' :
-              partyFilter === 'INC_WINS' ? 'Booths Won by INC in 2024' :
-              partyFilter === 'AAP_WINS' ? 'Booths Won by AAP in 2024' :
-              partyFilter === 'BJP_WINS' ? 'Booths Won by BJP in 2024' :
-              partyFilter === 'SAD_WINS' ? 'Booths Won by SAD in 2024' : 'Booths'
+              partyFilter === 'INC_WINS' ? 'Booths Won by INC in 2024 (111 Booths)' :
+              partyFilter === 'AAP_WINS' ? 'Booths Won by AAP in 2024 (81 Booths)' :
+              partyFilter === 'BJP_WINS' ? 'Booths Won by BJP in 2024 (25 Booths)' :
+              partyFilter === 'SAD_WINS' ? 'Booths Won by SAD in 2024 (5 Booths)' :
+              partyFilter === 'FLIPPED_ONLY' ? 'Flipped Booths (128 Booths - Changed Party)' :
+              partyFilter === 'RETAINED_ONLY' ? 'Retained Booths (94 Booths - Same Party)' : 'Booths'
             )}
             {!isAllMode && (
-              partyFilter === 'ALL' ? `All Booths for ${selectedParty}` :
+              partyFilter === 'ALL' ? `All 223 Booths for ${selectedParty}` :
               partyFilter === 'WON_BOTH' ? `${selectedParty} Strongholds (Won Both 2022 & 2024)` :
               partyFilter === 'GAINED' ? `${selectedParty} Gains (Won in 2024, Lost in 2022)` :
               partyFilter === 'LOST_24' ? `${selectedParty} Losses (Won in 2022, Lost in 2024)` :
@@ -186,10 +188,10 @@ export default function BoothGrid({
                 }
 
                 // Party-Specific Row
-                const v22 = b.data_2022[pKey];
-                const pct22 = b.data_2022[`${pKey}_pct`];
-                const v24 = b.data_2024[pKey];
-                const pct24 = b.data_2024[`${pKey}_pct`];
+                const v22 = b.data_2022[pKey] || 0;
+                const pct22 = b.data_2022[`${pKey}_pct`] || 0.0;
+                const v24 = b.data_2024[pKey] || 0;
+                const pct24 = b.data_2024[`${pKey}_pct`] || 0.0;
                 const partyDiff = v24 - v22;
                 const swing = (pct24 - pct22).toFixed(1);
 
@@ -354,10 +356,10 @@ export default function BoothGrid({
             }
 
             // Party-Specific Card
-            const v22 = b.data_2022[pKey];
-            const pct22 = b.data_2022[`${pKey}_pct`];
-            const v24 = b.data_2024[pKey];
-            const pct24 = b.data_2024[`${pKey}_pct`];
+            const v22 = b.data_2022[pKey] || 0;
+            const pct22 = b.data_2022[`${pKey}_pct`] || 0.0;
+            const v24 = b.data_2024[pKey] || 0;
+            const pct24 = b.data_2024[`${pKey}_pct`] || 0.0;
             const partyDiff = v24 - v22;
 
             let catLabel = 'Lost Both';

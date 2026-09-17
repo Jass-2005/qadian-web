@@ -41,7 +41,7 @@ export default function AnalyticsView({ booths, summary }) {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8125rem', marginBottom: '4px' }}>
               <span style={{ fontWeight: 600, color: 'var(--color-aap)' }}>AAP (Aam Aadmi Party)</span>
-              <span>31.30% (2022) → <strong>32.48% (2024)</strong></span>
+              <span>26.02% (2022 Sekhwan) → <strong>32.48% (2024 Kalsi)</strong> (+6.46% Swing)</span>
             </div>
             <div className="vote-bar-track">
               <div className="vote-bar-fill" style={{ width: '32.48%', background: 'var(--color-aap)' }} />
@@ -52,7 +52,7 @@ export default function AnalyticsView({ booths, summary }) {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8125rem', marginBottom: '4px' }}>
               <span style={{ fontWeight: 600, color: 'var(--color-sad)' }}>SAD (Shiromani Akali Dal)</span>
-              <span>26.02% (2022) → <strong>13.08% (2024)</strong></span>
+              <span>31.30% (2022 Mahal) → <strong>13.08% (2024 Cheema)</strong> (-18.22% Drop)</span>
             </div>
             <div className="vote-bar-track">
               <div className="vote-bar-fill" style={{ width: '13.08%', background: 'var(--color-sad)' }} />
