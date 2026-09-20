@@ -11,11 +11,11 @@ export default function VillageView({ booths, onSelectBooth }) {
       // Normalize name for grouping
       let name = b.village_english;
       // Strip Ward No if any for broad clustering, or group by exact village
-      if (name.includes('Ward No') || name.includes('Civil Line')) {
+      if (name.includes('Ward No') || name.includes('Civil Line') || name.toLowerCase() === 'qadian') {
         name = 'Qadian (Town Wards)';
-      } else if (name.startsWith('Dhariwal')) {
+      } else if (name.toLowerCase().startsWith('dhariwal')) {
         name = 'Dhariwal (Town & Suburbs)';
-      } else if (name.startsWith('Kahnuwan')) {
+      } else if (name.toLowerCase().startsWith('kahnuwan')) {
         name = 'Kahnuwan';
       }
 

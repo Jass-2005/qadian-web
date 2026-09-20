@@ -116,11 +116,14 @@ export default function App() {
     // 1. Search Query
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim();
+      const qNum = q.replace(/^#|^booth\s*/i, '').trim();
       result = result.filter(b => 
         b.booth_no.toString() === q ||
+        b.booth_no.toString() === qNum ||
         b.village_english.toLowerCase().includes(q) ||
         b.village_punjabi.includes(q) ||
-        b.exact_name_punjabi.includes(q)
+        b.exact_name_punjabi.includes(q) ||
+        (b.booth_name_official && b.booth_name_official.toLowerCase().includes(q))
       );
     }
 
