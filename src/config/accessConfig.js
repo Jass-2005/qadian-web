@@ -1,39 +1,40 @@
 /**
  * ACCESS & EXPIRATION CONFIGURATION
  * ============================================================================
- * Use this file to set the exact date and time you want the GitHub Pages site
- * to expire for visitors.
- * 
  * Local Timezone: Indian Standard Time (IST, UTC+05:30)
  * ============================================================================
  */
 
 export const ACCESS_CONFIG = {
+  // If true, visiting the base link without an #exp= or ?exp= token shows NOTHING
+  blockBaseLink: true,
+
+  // If true, expired links also show NOTHING instead of any details
+  showBlankWhenExpired: true,
+
   // Set to true to enforce the expiration date & time below
   isExpiryActive: true,
 
-  // SET YOUR DESIRED EXPIRATION TIME HERE (ISO-8601 format with timezone)
-  // Format: "YYYY-MM-DDTHH:mm:ss+05:30"
-  // Default is set to 2 hours from 17:30 IST today (19:30 IST):
-  expiryTimestamp: "2026-09-23T19:30:00+05:30",
+  // Default fallback timestamp (past time = expired immediately)
+  expiryTimestamp: "2026-09-23T17:00:00+05:30",
 
   // Master Admin Passcode:
-  // If the page expires, YOU can click "Admin Unlock" and enter this passcode
-  // to view the full dashboard on your browser at any time!
+  // If locked, open #admin or press Alt+A to enter this passcode
   adminPasscode: "qadian2026",
 
-  // Title and message displayed on the Expired Screen
+  // Title and message displayed on the Expired Screen (if showBlankWhenExpired is false)
   title: "Temporary Access Expired",
   subtitle: "18-Qadian Assembly Election Analytics Portal",
-  message: "The scheduled review window for this temporary link has concluded. Access to the election registry and analytics is now restricted.",
-
-  // Contact text shown to visitors
+  message: "The scheduled review window for this temporary link has concluded.",
   contactNote: "If you need renewed or extended access, please contact the administrator."
 };
 
 /**
- * Helper to check whether the current time is past the expiration time
- * Also supports dynamic URL hash/query overrides (e.g. #exp=1727100000000)
+ * Helper to check whether the current visitor is authorized
+ * - Base link without token => showNothing: true
+ * - Expired link => showNothing: true
+ * - Valid active token link => granted until expiry
+ * - Admin logged in => granted permanently
  */
 export function checkAccessStatus() {
   // Check if admin is already unlocked in this browser session
@@ -41,7 +42,7 @@ export function checkAccessStatus() {
                         localStorage.getItem('qadian_admin_unlocked') === 'true';
   
   if (adminUnlocked) {
-    return { isExpired: false, isAdmin: true, expiryDate: null, remainingMs: Infinity };
+    return { isExpired: false, isAdmin: true, showNothing: false, expiryDate: null, remainingMs: Infinity };
   }
 
   const now = Date.now();
@@ -63,17 +64,32 @@ export function checkAccessStatus() {
     }
   }
 
-  // 3. Fallback to global config expiry if active
-  if (!targetExpiry && ACCESS_CONFIG.isExpiryActive && ACCESS_CONFIG.expiryTimestamp) {
-    const parsed = new Date(ACCESS_CONFIG.expiryTimestamp).getTime();
-    if (!isNaN(parsed)) {
-      targetExpiry = parsed;
+  // 3. If NO token was provided in the URL:
+  if (!targetExpiry) {
+    if (ACCESS_CONFIG.blockBaseLink) {
+      // BASE LINK: SHOW NOTHING!
+      return { 
+        isExpired: true, 
+        isAdmin: false, 
+        showNothing: true, 
+        isBaseLink: true, 
+        expiryDate: null, 
+        remainingMs: 0 
+      };
+    }
+
+    // Fallback to global config expiry if active
+    if (ACCESS_CONFIG.isExpiryActive && ACCESS_CONFIG.expiryTimestamp) {
+      const parsed = new Date(ACCESS_CONFIG.expiryTimestamp).getTime();
+      if (!isNaN(parsed)) {
+        targetExpiry = parsed;
+      }
     }
   }
 
-  // If no expiry is configured or active, access is granted
+  // If still no expiry, default to blocking base link
   if (!targetExpiry) {
-    return { isExpired: false, isAdmin: false, expiryDate: null, remainingMs: Infinity };
+    return { isExpired: true, isAdmin: false, showNothing: true, isBaseLink: true, expiryDate: null, remainingMs: 0 };
   }
 
   const remainingMs = targetExpiry - now;
@@ -82,6 +98,8 @@ export function checkAccessStatus() {
   return {
     isExpired,
     isAdmin: false,
+    showNothing: isExpired && ACCESS_CONFIG.showBlankWhenExpired,
+    isBaseLink: false,
     expiryDate: new Date(targetExpiry),
     remainingMs: Math.max(0, remainingMs)
   };

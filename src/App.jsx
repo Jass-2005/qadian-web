@@ -11,6 +11,7 @@ import ExpiredScreen from './components/ExpiredScreen';
 import AccessBanner from './components/AccessBanner';
 import ShareModal from './components/ShareModal';
 import AdminPanel from './components/AdminPanel';
+import BlankScreen from './components/BlankScreen';
 import { checkAccessStatus } from './config/accessConfig';
 import { 
   Search, 
@@ -300,6 +301,15 @@ export default function App() {
         }}
         theme={theme}
         toggleTheme={toggleTheme}
+      />
+    );
+  }
+
+  // Base link without token or expired stealth mode: SHOW NOTHING!
+  if (!simulationMode && accessStatus.showNothing && !accessStatus.isAdmin) {
+    return (
+      <BlankScreen 
+        onSecretAdminTrigger={() => setIsAdminPanelOpen(true)} 
       />
     );
   }
