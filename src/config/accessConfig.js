@@ -20,7 +20,7 @@ export const ACCESS_CONFIG = {
 
   // Master Admin Passcode:
   // If locked, open #admin or press Alt+A to enter this passcode
-  adminPasscode: "qadian2026",
+  adminPasscode: "123@JQA",
 
   // Title and message displayed on the Expired Screen (if showBlankWhenExpired is false)
   title: "Temporary Access Expired",
