@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, MapPin, Users, FileSpreadsheet, ExternalLink, X, ClipboardList } from 'lucide-react';
+import { LayoutDashboard, MapPin, Users, ExternalLink, X } from 'lucide-react';
 
 export default function Sidebar({ activeTab, setActiveTab, isOpen, onClose }) {
   const handleNavClick = (tab) => {
@@ -75,42 +75,9 @@ export default function Sidebar({ activeTab, setActiveTab, isOpen, onClose }) {
           </button>
 
           <a 
-            href="./Qadian_Master_Booth_Analysis_AAP_INC.xlsx" 
-            download="Qadian_Master_Booth_Analysis_AAP_INC.xlsx"
-            className="sidebar-nav-btn"
-            title="Master Excel Spreadsheet (.xlsx)"
-            onClick={() => { if (onClose) onClose(); }}
-          >
-            <FileSpreadsheet size={20} />
-            <span className="sidebar-label hide-desktop">Master Excel</span>
-          </a>
-
-          <a 
-            href="./Qadian_223_Boothwise_Detailed_Field_Operations_PURE_ENGLISH.pdf" 
-            download="Qadian_223_Boothwise_Detailed_Field_Operations_PURE_ENGLISH.pdf"
-            className="sidebar-nav-btn"
-            title="Download Detailed 223-Booth Master Plan in English (PDF with Watermark)"
-            onClick={() => { if (onClose) onClose(); }}
-          >
-            <ClipboardList size={20} />
-            <span className="sidebar-label hide-desktop">Master Plan (EN PDF)</span>
-          </a>
-
-          <a 
-            href="./Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.pdf" 
-            download="Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.pdf"
-            className="sidebar-nav-btn"
-            title="Download 223-Booth Detailed Field Operations Plan in Punjabi (PDF with Watermark)"
-            onClick={() => { if (onClose) onClose(); }}
-          >
-            <ClipboardList size={20} />
-            <span className="sidebar-label hide-desktop">223 ਬੂਥ ਪਲਾਨ (PA PDF)</span>
-          </a>
-
-          <a 
             href="https://dsidein.com" 
             target="_blank" 
-            rel="noreferrer"
+            rel="noreferrer" 
             className="sidebar-nav-btn"
             title="Dsidein Platform — dsidein.com"
             onClick={() => { if (onClose) onClose(); }}

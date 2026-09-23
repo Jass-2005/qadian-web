@@ -18,7 +18,6 @@ import {
   Printer, 
   MapPin, 
   Users, 
-  FileSpreadsheet, 
   Compass, 
   Layers, 
   Activity, 
@@ -26,8 +25,7 @@ import {
   BarChart3,
   ExternalLink,
   ShieldAlert,
-  Database,
-  ClipboardList
+  Database
 } from 'lucide-react';
 
 export default function App() {
@@ -395,36 +393,6 @@ export default function App() {
             </div>
 
             <div className="title-action-buttons">
-              <a 
-                href="./Qadian_Master_Booth_Analysis_AAP_INC.xlsx" 
-                download="Qadian_Master_Booth_Analysis_AAP_INC.xlsx"
-                className="pill-action-btn green"
-                title="Download Master Analysis Spreadsheet (Excel .xlsx with AAP/INC Colors)"
-              >
-                <span className="pill-btn-icon"><FileSpreadsheet size={14} /></span>
-                <span className="pill-btn-label">Master Excel</span>
-              </a>
-
-              <a 
-                href="./Qadian_223_Boothwise_Detailed_Field_Operations_PURE_ENGLISH.pdf" 
-                download="Qadian_223_Boothwise_Detailed_Field_Operations_PURE_ENGLISH.pdf"
-                className="pill-action-btn purple"
-                title="Download Complete 223-Booth Master Plan in English (PDF with Watermark)"
-              >
-                <span className="pill-btn-icon"><ClipboardList size={14} /></span>
-                <span className="pill-btn-label">Master Plan (English PDF)</span>
-              </a>
-
-              <a 
-                href="./Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.pdf" 
-                download="Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.pdf"
-                className="pill-action-btn amber"
-                title="Download 223 Boothwise Detailed Field Operations Plan in Punjabi (PDF with Watermark)"
-              >
-                <span className="pill-btn-icon"><ClipboardList size={14} /></span>
-                <span className="pill-btn-label">223 ਬੂਥ ਮਾਸਟਰ ਪਲਾਨ (ਪੰਜਾਬੀ PDF)</span>
-              </a>
-
               <button 
                 onClick={handlePrintMasterReport}
                 className="pill-action-btn outline"

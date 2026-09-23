@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Printer, Target, Download, FileText } from 'lucide-react';
+import { X, Printer, Target, FileText } from 'lucide-react';
 
 export default function BoothModal({ booth, onClose }) {
   const [mpLang, setMpLang] = useState('PA');
@@ -351,29 +351,6 @@ export default function BoothModal({ booth, onClose }) {
                   </div>
                 ))}
               </div>
-            </div>
-
-            {/* Download Complete Master Plan PDF */}
-            <div className="masterplan-download-row no-print">
-              <a 
-                href="./Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.pdf" 
-                download="Qadian_223_Boothwise_Detailed_Field_Operations_Punjabi_Revised-final.pdf"
-                className="btn-download-masterplan pa"
-                title="Download 223-Booth Detailed Field Operations Plan in Punjabi (PDF with Watermark)"
-              >
-                <Download size={14} />
-                <span>223 ਬੂਥ ਮਾਸਟਰ ਪਲਾਨ (ਪੰਜਾਬੀ PDF)</span>
-              </a>
-
-              <a 
-                href="./Qadian_223_Boothwise_Detailed_Field_Operations_PURE_ENGLISH.pdf" 
-                download="Qadian_223_Boothwise_Detailed_Field_Operations_PURE_ENGLISH.pdf"
-                className="btn-download-masterplan en"
-                title="Download 223-Booth Master Plan Document in English (PDF with Watermark)"
-              >
-                <Download size={14} />
-                <span>Master Plan (English PDF)</span>
-              </a>
             </div>
           </div>
         )}
