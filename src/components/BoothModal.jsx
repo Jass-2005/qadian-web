@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { X, Printer, Target, FileText } from 'lucide-react';
+import React from 'react';
+import { X, Printer } from 'lucide-react';
 
 export default function BoothModal({ booth, onClose }) {
-  const [mpLang, setMpLang] = useState('PA');
   if (!booth) return null;
 
   const d22 = booth.data_2022;
@@ -252,108 +251,6 @@ export default function BoothModal({ booth, onClose }) {
             </div>
           </div>
         </div>
-
-        {/* =========================================================
-            BOOTH-SPECIFIC DETAILED MASTER PLAN & FIELD STRATEGY
-        ========================================================= */}
-        {booth.masterplan && (
-          <div className="modal-masterplan-box">
-            {/* Masterplan Header with Bilingual Toggle & Category Badge */}
-            <div className="masterplan-header">
-              <div className="masterplan-title-wrap">
-                <div className="masterplan-icon-badge">
-                  <Target size={16} />
-                </div>
-                <div>
-                  <h3 className="masterplan-title">
-                    {mpLang === 'PA' ? '223 ਬੂਥ ਵਿਸਥਾਰਤ ਮਾਸਟਰ ਪਲਾਨ (Field Operations)' : '223-Booth Strategic Master Plan'}
-                  </h3>
-                  <p className="masterplan-sub">
-                    {mpLang === 'PA' ? 'ਮੈਦਾਨੀ ਕਾਰਵਾਈਆਂ ਅਤੇ ਪਬਲਿਕ ਇਸ਼ੂ ਪਲਾਨ' : 'Field Ground Directive & 90-Day Action Roadmap'}
-                  </p>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <div className="mp-lang-switch no-print" role="group" aria-label="Masterplan language">
-                  <button
-                    className={`mp-lang-btn ${mpLang === 'PA' ? 'active' : ''}`}
-                    onClick={() => setMpLang('PA')}
-                    type="button"
-                  >
-                    ਪੰਜਾਬੀ
-                  </button>
-                  <button
-                    className={`mp-lang-btn ${mpLang === 'EN' ? 'active' : ''}`}
-                    onClick={() => setMpLang('EN')}
-                    type="button"
-                  >
-                    English
-                  </button>
-                </div>
-
-                <span className={`masterplan-cat-badge ${
-                  booth.masterplan.category_type && booth.masterplan.category_type.includes('AAP Retained') ? 'aap-won' :
-                  booth.masterplan.category_type && booth.masterplan.category_type.includes('Gain') ? 'aap-gain' :
-                  booth.masterplan.category_type && booth.masterplan.category_type.includes('Reversal') ? 'aap-lost' :
-                  booth.masterplan.category_type && booth.masterplan.category_type.includes('INC') ? 'inc-won' : 'neutral'
-                }`}>
-                  {booth.masterplan.category_type || 'Field Operations'}
-                </span>
-              </div>
-            </div>
-
-            {/* Quick Metrics Strip */}
-            <div className="masterplan-metrics-strip">
-              <div className="mp-metric-item">
-                <span className="mp-metric-label">AAP Swing:</span>
-                <strong className={`mp-metric-val ${booth.masterplan.aap_swing && booth.masterplan.aap_swing.startsWith('+') ? 'gain' : 'loss'}`}>
-                  {booth.masterplan.aap_swing}
-                </strong>
-              </div>
-              <div className="mp-metric-item">
-                <span className="mp-metric-label">Turnout Movement:</span>
-                <strong className="mp-metric-val">
-                  {booth.masterplan.turnout_delta}
-                </strong>
-              </div>
-              <div className="mp-metric-item">
-                <span className="mp-metric-label">Cycle Directive:</span>
-                <strong className="mp-metric-val">90-Day Field Ops</strong>
-              </div>
-            </div>
-
-            {/* Field Status Diagnosis */}
-            <div className="masterplan-status-card">
-              <div className="mp-card-label">
-                <span>{mpLang === 'PA' ? 'ਮੈਦਾਨੀ ਸਥਿਤੀ ਅਤੇ ਵਿਸ਼ਲੇਸ਼ਣ' : 'Field Diagnosis & Ground Reality'}</span>
-              </div>
-              <p className={`mp-status-text ${mpLang === 'PA' ? 'punjabi-font' : ''}`}>
-                {mpLang === 'PA'
-                  ? (booth.masterplan.detailed_situation_pa || booth.masterplan.detailed_status_pa || booth.masterplan.detailed_status)
-                  : (booth.masterplan.detailed_situation_en || booth.masterplan.detailed_status || booth.masterplan.detailed_situation_pa)}
-              </p>
-            </div>
-
-            {/* Action Roadmap */}
-            <div className="masterplan-actions-card">
-              <div className="mp-card-label">
-                <span>{mpLang === 'PA' ? '90-ਦਿਨਾ ਕਾਰਵਾਈ ਯੋਜਨਾ (ਕਦਮ ਦਰ ਕਦਮ)' : '90-Day Tactical Ground Steps'}</span>
-              </div>
-              <div className="mp-steps-list">
-                {((mpLang === 'PA' && (booth.masterplan.action_steps_pa || booth.masterplan.action_steps))
-                  ? (booth.masterplan.action_steps_pa || booth.masterplan.action_steps)
-                  : (booth.masterplan.action_steps_en || booth.masterplan.action_steps || booth.masterplan.action_steps_pa)
-                )?.map((step, idx) => (
-                  <div key={idx} className="mp-step-item">
-                    <span className="mp-step-num">{idx + 1}</span>
-                    <span className={`mp-step-text ${mpLang === 'PA' ? 'punjabi-font' : ''}`}>{step}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
