@@ -239,6 +239,36 @@
   border-color: var(--border-medium);
 }
 
+.btn-header-share {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  background: var(--brand-blue);
+  color: #ffffff;
+  border: 1px solid var(--brand-blue);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-header-share:hover {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+@media (max-width: 640px) {
+  .btn-header-share .btn-share-text {
+    display: none;
+  }
+  .btn-header-share {
+    padding: 6px 8px;
+  }
+}
+
+
 /* Dsidein User Profile Chip */
 .dsidein-user-profile {
   display: flex;

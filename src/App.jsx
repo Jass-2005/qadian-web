@@ -7,6 +7,10 @@ import PartyHub from './components/PartyHub';
 import BoothGrid from './components/BoothGrid';
 import BoothModal from './components/BoothModal';
 import CustomDropdown from './components/CustomDropdown';
+import ExpiredScreen from './components/ExpiredScreen';
+import AccessBanner from './components/AccessBanner';
+import ShareModal from './components/ShareModal';
+import { checkAccessStatus } from './config/accessConfig';
 import { 
   Search, 
   RotateCcw, 
@@ -34,6 +38,27 @@ export default function App() {
   const [sortBy, setSortBy] = useState('BOOTH_ASC');
   const [selectedBooth, setSelectedBooth] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Access Control & Expiration State
+  const [accessStatus, setAccessStatus] = useState(() => checkAccessStatus());
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+
+  useEffect(() => {
+    const handleAccessCheck = () => {
+      setAccessStatus(checkAccessStatus());
+    };
+    window.addEventListener('hashchange', handleAccessCheck);
+    window.addEventListener('popstate', handleAccessCheck);
+    return () => {
+      window.removeEventListener('hashchange', handleAccessCheck);
+      window.removeEventListener('popstate', handleAccessCheck);
+    };
+  }, []);
+
+  const handleAdminUnlock = () => {
+    setAccessStatus({ isExpired: false, isAdmin: true, expiryDate: null, remainingMs: Infinity });
+  };
+
 
   // Apply theme
   useEffect(() => {
@@ -237,8 +262,29 @@ export default function App() {
     window.print();
   };
 
+  // If access is expired and visitor is not admin, show ExpiredScreen
+  if (accessStatus.isExpired && !accessStatus.isAdmin) {
+    return (
+      <ExpiredScreen 
+        expiryDate={accessStatus.expiryDate}
+        onAdminUnlock={handleAdminUnlock}
+        theme={theme}
+        toggleTheme={toggleTheme}
+      />
+    );
+  }
+
   return (
     <div className="dsidein-app-root">
+      {/* Active Expiration Warning Pill / Banner */}
+      {accessStatus.expiryDate && !accessStatus.isAdmin && (
+        <AccessBanner 
+          expiryDate={accessStatus.expiryDate} 
+          onExpire={() => setAccessStatus(prev => ({ ...prev, isExpired: true }))}
+          isAdmin={accessStatus.isAdmin}
+        />
+      )}
+
       {/* 1. Left Slim Navigation Rail / Mobile Drawer */}
       <Sidebar 
         activeTab={activeTab} 
@@ -256,6 +302,7 @@ export default function App() {
           onMenuClick={() => setMobileMenuOpen(prev => !prev)} 
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
+          onOpenShareModal={() => setIsShareModalOpen(true)}
         />
 
         {/* Dsidein Official PDF Watermark (Active on all PDF exports & printing) */}
@@ -492,6 +539,13 @@ export default function App() {
           onClose={() => setSelectedBooth(null)}
         />
       )}
+
+      {/* Share Modal Dialog */}
+      <ShareModal 
+        isOpen={isShareModalOpen} 
+        onClose={() => setIsShareModalOpen(false)} 
+      />
     </div>
   );
 }
+

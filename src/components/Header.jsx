@@ -1,12 +1,13 @@
 import React from 'react';
-import { Sun, Moon, Menu, ChevronDown, Search } from 'lucide-react';
+import { Sun, Moon, Menu, ChevronDown, Search, Share2 } from 'lucide-react';
 
 export default function Header({ 
   theme, 
   toggleTheme, 
   onMenuClick,
   searchQuery,
-  setSearchQuery
+  setSearchQuery,
+  onOpenShareModal
 }) {
   return (
     <header className="app-header no-print">
@@ -43,8 +44,20 @@ export default function Header({
           </div>
         </div>
 
-        {/* Right: Theme & Dsidein User Profile */}
+        {/* Right: Share, Theme & Dsidein User Profile */}
         <div className="header-right">
+
+          {/* Share Expiring Link Button */}
+          <button 
+            type="button"
+            className="btn-header-share"
+            onClick={onOpenShareModal}
+            aria-label="Share Expiring Link"
+            title="Generate & Share Expiring Link"
+          >
+            <Share2 size={14} />
+            <span className="btn-share-text">Share Link</span>
+          </button>
 
           {/* Theme Toggle */}
           <button 
@@ -73,4 +86,5 @@ export default function Header({
     </header>
   );
 }
+
 
