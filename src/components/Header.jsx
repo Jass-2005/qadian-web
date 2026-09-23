@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sun, Moon, Menu, ChevronDown, Search, Share2 } from 'lucide-react';
+import { Sun, Moon, Menu, ChevronDown, Search } from 'lucide-react';
 
 export default function Header({ 
   theme, 
@@ -7,7 +7,7 @@ export default function Header({
   onMenuClick,
   searchQuery,
   setSearchQuery,
-  onOpenShareModal
+  onOpenAdmin
 }) {
   return (
     <header className="app-header no-print">
@@ -44,20 +44,9 @@ export default function Header({
           </div>
         </div>
 
-        {/* Right: Share, Theme & Dsidein User Profile */}
+        {/* Right: Theme & Dsidein User Profile */}
         <div className="header-right">
 
-          {/* Share Expiring Link Button */}
-          <button 
-            type="button"
-            className="btn-header-share"
-            onClick={onOpenShareModal}
-            aria-label="Share Expiring Link"
-            title="Generate & Share Expiring Link"
-          >
-            <Share2 size={14} />
-            <span className="btn-share-text">Share Link</span>
-          </button>
 
           {/* Theme Toggle */}
           <button 
@@ -69,8 +58,12 @@ export default function Header({
             {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
           </button>
 
-          {/* Dsidein User Profile Dropdown */}
-          <div className="dsidein-user-profile" title="Dsidein Command Center User">
+          {/* Dsidein User Profile Dropdown (Double click opens hidden Admin Console) */}
+          <div 
+            className="dsidein-user-profile" 
+            title="Dsidein Command Center User"
+            onDoubleClick={onOpenAdmin}
+          >
             <div className="user-avatar-circle">
               <img 
                 src="./dsidein_logo_transparent.png" 

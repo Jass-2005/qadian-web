@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Clock, 
   ShieldAlert, 
@@ -6,10 +6,7 @@ import {
   KeyRound, 
   Sun, 
   Moon, 
-  ChevronRight, 
-  CheckCircle2, 
-  AlertCircle,
-  ExternalLink
+  AlertCircle
 } from 'lucide-react';
 import './ExpiredScreen.css';
 import { ACCESS_CONFIG } from '../config/accessConfig';
@@ -21,8 +18,30 @@ export default function ExpiredScreen({
   toggleTheme 
 }) {
   const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [clickCount, setClickCount] = useState(0);
   const [passcode, setPasscode] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+
+  // Support secret hotkey Alt+A or #admin hash
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.altKey && (e.key === 'a' || e.key === 'A')) {
+        e.preventDefault();
+        setShowAdminLogin(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const handleLogoClick = () => {
+    const nextCount = clickCount + 1;
+    setClickCount(nextCount);
+    if (nextCount >= 3) {
+      setShowAdminLogin(true);
+      setClickCount(0);
+    }
+  };
 
   const formattedDate = expiryDate 
     ? new Intl.DateTimeFormat('en-IN', {
@@ -35,7 +54,7 @@ export default function ExpiredScreen({
   const handleUnlockSubmit = (e) => {
     e.preventDefault();
     if (!passcode) {
-      setErrorMsg('Please enter the admin passcode.');
+      setErrorMsg('Please enter passcode.');
       return;
     }
 
@@ -45,7 +64,7 @@ export default function ExpiredScreen({
       setErrorMsg('');
       onAdminUnlock();
     } else {
-      setErrorMsg('Invalid admin passcode. Please try again.');
+      setErrorMsg('Invalid passcode.');
     }
   };
 
@@ -54,7 +73,7 @@ export default function ExpiredScreen({
       {/* Semantic Top Navigation / Header */}
       <header className="expired-top-nav">
         <div className="expired-nav-container">
-          <div className="expired-brand">
+          <div className="expired-brand" onClick={handleLogoClick} title="Dsidein Command Center" style={{ cursor: 'default' }}>
             <div className="expired-brand-avatar">
               <img 
                 src="./dsidein_logo_transparent.png" 
@@ -130,23 +149,13 @@ export default function ExpiredScreen({
             {ACCESS_CONFIG.contactNote}
           </p>
 
-          {/* Admin Unlock Drawer */}
-          <section className="expired-admin-section">
-            {!showAdminLogin ? (
-              <button 
-                type="button"
-                className="btn-show-admin"
-                onClick={() => setShowAdminLogin(true)}
-              >
-                <KeyRound size={15} />
-                <span>Administrator Unlock</span>
-                <ChevronRight size={14} className="admin-chevron" />
-              </button>
-            ) : (
+          {/* Secret / Hidden Admin Drawer - Only revealed via Alt+A or 3 clicks on logo */}
+          {showAdminLogin && (
+            <section className="expired-admin-section">
               <form onSubmit={handleUnlockSubmit} className="admin-unlock-form" noValidate>
                 <div className="admin-form-header">
                   <span className="admin-form-title">
-                    <Lock size={14} /> Enter Admin Passcode
+                    <Lock size={14} /> Administrator Access
                   </span>
                   <button 
                     type="button" 
@@ -156,7 +165,7 @@ export default function ExpiredScreen({
                       setErrorMsg('');
                     }}
                   >
-                    Cancel
+                    Close
                   </button>
                 </div>
 
@@ -164,14 +173,14 @@ export default function ExpiredScreen({
                   <input 
                     type="password"
                     className="admin-passcode-input"
-                    placeholder="Enter passcode to unlock..."
+                    placeholder="Enter passcode..."
                     value={passcode}
                     onChange={(e) => {
                       setPasscode(e.target.value);
                       setErrorMsg('');
                     }}
                     autoFocus
-                    aria-label="Admin passcode"
+                    aria-label="Passcode"
                   />
                   <button type="submit" className="btn-admin-submit">
                     Unlock
@@ -185,8 +194,8 @@ export default function ExpiredScreen({
                   </div>
                 )}
               </form>
-            )}
-          </section>
+            </section>
+          )}
         </article>
       </main>
 

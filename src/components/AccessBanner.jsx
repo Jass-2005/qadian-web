@@ -1,68 +1,64 @@
 import React, { useState, useEffect } from 'react';
-import { Clock, AlertTriangle, ShieldCheck, X } from 'lucide-react';
+import { AlertTriangle, Clock, X } from 'lucide-react';
 import './AccessBanner.css';
 
 export default function AccessBanner({ expiryDate, onExpire, isAdmin }) {
-  const [timeLeft, setTimeLeft] = useState('');
-  const [isWarning, setIsWarning] = useState(false);
+  const [secondsRemaining, setSecondsRemaining] = useState(null);
   const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
     if (!expiryDate || isAdmin) return;
 
-    const updateTimer = () => {
+    const checkTimer = () => {
       const now = Date.now();
       const diff = expiryDate.getTime() - now;
+      const totalSec = Math.floor(diff / 1000);
 
-      if (diff <= 0) {
-        setTimeLeft('Expired');
+      if (totalSec <= 0) {
+        setSecondsRemaining(0);
         if (onExpire) onExpire();
-        return;
-      }
-
-      const totalSeconds = Math.floor(diff / 1000);
-      const hours = Math.floor(totalSeconds / 3600);
-      const minutes = Math.floor((totalSeconds % 3600) / 60);
-      const seconds = totalSeconds % 60;
-
-      // Under 15 minutes is warning state
-      setIsWarning(totalSeconds < 900);
-
-      if (hours > 0) {
-        setTimeLeft(`${hours}h ${minutes}m remaining`);
-      } else if (minutes > 0) {
-        setTimeLeft(`${minutes}m ${seconds}s remaining`);
       } else {
-        setTimeLeft(`${seconds}s remaining`);
+        setSecondsRemaining(totalSec);
       }
     };
 
-    updateTimer();
-    const interval = setInterval(updateTimer, 1000);
+    checkTimer();
+    const interval = setInterval(checkTimer, 1000);
     return () => clearInterval(interval);
   }, [expiryDate, onExpire, isAdmin]);
 
-  if (dismissed || !expiryDate) return null;
+  // STRICT REQUIREMENT:
+  // Do NOT show the timer the whole time!
+  // ONLY show to the person in the last minute (<= 60 seconds)
+  if (dismissed || secondsRemaining === null || secondsRemaining > 60 || secondsRemaining <= 0 || isAdmin) {
+    return null;
+  }
 
   return (
     <aside 
-      className={`access-banner-pill ${isWarning ? 'banner-warning' : ''}`}
-      role="status"
-      aria-live="polite"
+      className="last-minute-warning-banner"
+      role="alert"
+      aria-live="assertive"
     >
-      <div className="banner-content">
-        <Clock size={14} className="banner-icon" />
-        <span className="banner-label">Temporary Access:</span>
-        <strong className="banner-time">{timeLeft}</strong>
+      <div className="warning-content">
+        <div className="warning-icon-pulse">
+          <AlertTriangle size={16} />
+        </div>
+        <div className="warning-text-group">
+          <strong className="warning-headline">Session Ending Soon</strong>
+          <span className="warning-detail">
+            Your access link expires in <span className="warning-seconds-pill">{secondsRemaining}s</span>
+          </span>
+        </div>
       </div>
       <button 
         type="button"
-        className="btn-banner-close" 
+        className="btn-warning-dismiss" 
         onClick={() => setDismissed(true)}
-        aria-label="Dismiss access banner"
-        title="Dismiss banner"
+        aria-label="Dismiss warning"
+        title="Dismiss warning"
       >
-        <X size={12} />
+        <X size={13} />
       </button>
     </aside>
   );

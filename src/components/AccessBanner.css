@@ -1,28 +1,36 @@
-/* Access Banner Styles */
-.access-banner-pill {
+/* =========================================================
+   LAST-MINUTE EXPIRATION WARNING TOAST / BANNER
+   - Only appears during the final 60 seconds
+   - 8px grid spacing
+   - CSS variables for full light/dark theme support
+   - Respects prefers-reduced-motion
+   ========================================================= */
+
+.last-minute-warning-banner {
   position: fixed;
-  top: 12px;
+  top: 16px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 9999;
+  z-index: 99999;
   display: flex;
   align-items: center;
-  gap: var(--space-1);
-  padding: 6px var(--space-2);
-  background-color: var(--bg-surface-elevated);
-  border: 1px solid var(--border-medium);
-  border-radius: var(--radius-full);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-  font-size: 0.8125rem;
-  color: var(--text-primary);
-  animation: bannerSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  backdrop-filter: blur(8px);
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: 10px var(--space-2);
+  min-width: 320px;
+  max-width: 90vw;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--status-lost-border);
+  border-left: 4px solid var(--status-lost);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.25);
+  animation: warningSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes bannerSlideDown {
+@keyframes warningSlideDown {
   from {
     opacity: 0;
-    transform: translate(-50%, -10px);
+    transform: translate(-50%, -16px);
   }
   to {
     opacity: 1;
@@ -30,55 +38,82 @@
   }
 }
 
-.banner-content {
+.warning-content {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-1);
 }
 
-.banner-icon {
-  color: var(--brand-cyan);
-}
-
-.banner-label {
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-.banner-time {
-  color: var(--brand-cyan);
-  font-weight: 700;
-}
-
-/* Warning state when under 15 minutes */
-.access-banner-pill.banner-warning {
-  border-color: var(--status-lost-border);
-  background-color: var(--status-lost-bg);
-}
-
-.access-banner-pill.banner-warning .banner-icon,
-.access-banner-pill.banner-warning .banner-time {
+.warning-icon-pulse {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--status-lost-bg);
   color: var(--status-lost);
-}
-
-.btn-banner-close {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2px;
+  flex-shrink: 0;
+  animation: warningPulse 1.5s infinite ease-in-out;
+}
+
+@keyframes warningPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+  }
+}
+
+.warning-text-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.warning-headline {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--status-lost);
+  line-height: 1.2;
+}
+
+.warning-detail {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.warning-seconds-pill {
+  display: inline-block;
+  font-weight: 800;
+  color: #ffffff;
+  background-color: var(--status-lost);
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  font-family: monospace;
+}
+
+.btn-warning-dismiss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
   border-radius: 50%;
   color: var(--text-muted);
   cursor: pointer;
-  margin-left: 4px;
+  background: transparent;
   transition: color 0.15s ease;
 }
 
-.btn-banner-close:hover {
+.btn-warning-dismiss:hover {
   color: var(--text-primary);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .access-banner-pill {
+  .last-minute-warning-banner,
+  .warning-icon-pulse {
     animation: none !important;
   }
 }

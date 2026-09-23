@@ -10,6 +10,7 @@ import CustomDropdown from './components/CustomDropdown';
 import ExpiredScreen from './components/ExpiredScreen';
 import AccessBanner from './components/AccessBanner';
 import ShareModal from './components/ShareModal';
+import AdminPanel from './components/AdminPanel';
 import { checkAccessStatus } from './config/accessConfig';
 import { 
   Search, 
@@ -41,10 +42,15 @@ export default function App() {
 
   // Access Control & Expiration State
   const [accessStatus, setAccessStatus] = useState(() => checkAccessStatus());
+  const [isAdminPanelOpen, setIsAdminPanelOpen] = useState(() => 
+    window.location.hash.toLowerCase() === '#admin'
+  );
+  const [simulationMode, setSimulationMode] = useState(null); // 'warning' | 'expired' | null
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   useEffect(() => {
     const handleAccessCheck = () => {
+      setIsAdminPanelOpen(window.location.hash.toLowerCase() === '#admin');
       setAccessStatus(checkAccessStatus());
     };
     window.addEventListener('hashchange', handleAccessCheck);
@@ -55,9 +61,22 @@ export default function App() {
     };
   }, []);
 
+  // Support hidden Alt+A hotkey to open Admin Console
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.altKey && (e.key === 'a' || e.key === 'A')) {
+        e.preventDefault();
+        setIsAdminPanelOpen(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const handleAdminUnlock = () => {
     setAccessStatus({ isExpired: false, isAdmin: true, expiryDate: null, remainingMs: Infinity });
   };
+
 
 
   // Apply theme
@@ -262,12 +281,40 @@ export default function App() {
     window.print();
   };
 
-  // If access is expired and visitor is not admin, show ExpiredScreen
-  if (accessStatus.isExpired && !accessStatus.isAdmin) {
+  // Render hidden Admin Console if #admin route or opened via Alt+A / double-click
+  if (isAdminPanelOpen) {
+    return (
+      <AdminPanel 
+        onClose={() => {
+          setIsAdminPanelOpen(false);
+          if (window.location.hash.toLowerCase() === '#admin') {
+            window.location.hash = '';
+          }
+        }}
+        onSimulateLastMinute={() => {
+          setIsAdminPanelOpen(false);
+          setSimulationMode('warning');
+          setTimeout(() => setSimulationMode(null), 60000);
+        }}
+        onSimulateExpired={() => {
+          setIsAdminPanelOpen(false);
+          setSimulationMode('expired');
+        }}
+        theme={theme}
+        toggleTheme={toggleTheme}
+      />
+    );
+  }
+
+  // If access is expired (or in expired simulation mode) and visitor is not admin, show ExpiredScreen
+  if (simulationMode === 'expired' || (accessStatus.isExpired && !accessStatus.isAdmin)) {
     return (
       <ExpiredScreen 
         expiryDate={accessStatus.expiryDate}
-        onAdminUnlock={handleAdminUnlock}
+        onAdminUnlock={() => {
+          setSimulationMode(null);
+          handleAdminUnlock();
+        }}
         theme={theme}
         toggleTheme={toggleTheme}
       />
@@ -276,10 +323,10 @@ export default function App() {
 
   return (
     <div className="dsidein-app-root">
-      {/* Active Expiration Warning Pill / Banner */}
-      {accessStatus.expiryDate && !accessStatus.isAdmin && (
+      {/* Active Expiration Warning Pill / Banner (Only shown in final 60 seconds) */}
+      {(accessStatus.expiryDate || simulationMode === 'warning') && !accessStatus.isAdmin && (
         <AccessBanner 
-          expiryDate={accessStatus.expiryDate} 
+          expiryDate={simulationMode === 'warning' ? new Date(Date.now() + 45000) : accessStatus.expiryDate} 
           onExpire={() => setAccessStatus(prev => ({ ...prev, isExpired: true }))}
           isAdmin={accessStatus.isAdmin}
         />
@@ -302,8 +349,9 @@ export default function App() {
           onMenuClick={() => setMobileMenuOpen(prev => !prev)} 
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
-          onOpenShareModal={() => setIsShareModalOpen(true)}
+          onOpenAdmin={() => setIsAdminPanelOpen(true)}
         />
+
 
         {/* Dsidein Official PDF Watermark (Active on all PDF exports & printing) */}
         <div className="dsidein-print-watermark" aria-hidden="true">
