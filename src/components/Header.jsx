@@ -6,8 +6,7 @@ export default function Header({
   toggleTheme, 
   onMenuClick,
   searchQuery,
-  setSearchQuery,
-  onOpenAdmin
+  setSearchQuery
 }) {
   return (
     <header className="app-header no-print">
@@ -58,11 +57,10 @@ export default function Header({
             {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
           </button>
 
-          {/* Dsidein User Profile Dropdown (Double click opens hidden Admin Console) */}
+          {/* Dsidein User Profile */}
           <div 
             className="dsidein-user-profile" 
             title="Dsidein Command Center User"
-            onDoubleClick={onOpenAdmin}
           >
             <div className="user-avatar-circle">
               <img 

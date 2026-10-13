@@ -7,12 +7,6 @@ import PartyHub from './components/PartyHub';
 import BoothGrid from './components/BoothGrid';
 import BoothModal from './components/BoothModal';
 import CustomDropdown from './components/CustomDropdown';
-import ExpiredScreen from './components/ExpiredScreen';
-import AccessBanner from './components/AccessBanner';
-import ShareModal from './components/ShareModal';
-import AdminPanel from './components/AdminPanel';
-import BlankScreen from './components/BlankScreen';
-import { checkAccessStatus } from './config/accessConfig';
 import { 
   Search, 
   RotateCcw, 
@@ -38,43 +32,6 @@ export default function App() {
   const [sortBy, setSortBy] = useState('BOOTH_ASC');
   const [selectedBooth, setSelectedBooth] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  // Access Control & Expiration State
-  const [accessStatus, setAccessStatus] = useState(() => checkAccessStatus());
-  const [isAdminPanelOpen, setIsAdminPanelOpen] = useState(() => 
-    window.location.hash.toLowerCase() === '#admin'
-  );
-  const [simulationMode, setSimulationMode] = useState(null); // 'warning' | 'expired' | null
-  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-
-  useEffect(() => {
-    const handleAccessCheck = () => {
-      setIsAdminPanelOpen(window.location.hash.toLowerCase() === '#admin');
-      setAccessStatus(checkAccessStatus());
-    };
-    window.addEventListener('hashchange', handleAccessCheck);
-    window.addEventListener('popstate', handleAccessCheck);
-    return () => {
-      window.removeEventListener('hashchange', handleAccessCheck);
-      window.removeEventListener('popstate', handleAccessCheck);
-    };
-  }, []);
-
-  // Support hidden Alt+A hotkey to open Admin Console
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.altKey && (e.key === 'a' || e.key === 'A')) {
-        e.preventDefault();
-        setIsAdminPanelOpen(prev => !prev);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
-  const handleAdminUnlock = () => {
-    setAccessStatus({ isExpired: false, isAdmin: true, expiryDate: null, remainingMs: Infinity });
-  };
 
 
 
@@ -280,65 +237,8 @@ export default function App() {
     window.print();
   };
 
-  // Render hidden Admin Console if #admin route or opened via Alt+A / double-click
-  if (isAdminPanelOpen) {
-    return (
-      <AdminPanel 
-        onClose={() => {
-          setIsAdminPanelOpen(false);
-          if (window.location.hash.toLowerCase() === '#admin') {
-            window.location.hash = '';
-          }
-        }}
-        onSimulateLastMinute={() => {
-          setIsAdminPanelOpen(false);
-          setSimulationMode('warning');
-          setTimeout(() => setSimulationMode(null), 60000);
-        }}
-        onSimulateExpired={() => {
-          setIsAdminPanelOpen(false);
-          setSimulationMode('expired');
-        }}
-        theme={theme}
-        toggleTheme={toggleTheme}
-      />
-    );
-  }
-
-  // Base link without token or expired stealth mode: SHOW NOTHING!
-  if (!simulationMode && accessStatus.showNothing && !accessStatus.isAdmin) {
-    return (
-      <BlankScreen 
-        onSecretAdminTrigger={() => setIsAdminPanelOpen(true)} 
-      />
-    );
-  }
-
-  // If access is expired (or in expired simulation mode) and visitor is not admin, show ExpiredScreen
-  if (simulationMode === 'expired' || (accessStatus.isExpired && !accessStatus.isAdmin)) {
-    return (
-      <ExpiredScreen 
-        expiryDate={accessStatus.expiryDate}
-        onAdminUnlock={() => {
-          setSimulationMode(null);
-          handleAdminUnlock();
-        }}
-        theme={theme}
-        toggleTheme={toggleTheme}
-      />
-    );
-  }
-
   return (
     <div className="dsidein-app-root">
-      {/* Active Expiration Warning Pill / Banner (Only shown in final 60 seconds) */}
-      {(accessStatus.expiryDate || simulationMode === 'warning') && !accessStatus.isAdmin && (
-        <AccessBanner 
-          expiryDate={simulationMode === 'warning' ? new Date(Date.now() + 45000) : accessStatus.expiryDate} 
-          onExpire={() => setAccessStatus(prev => ({ ...prev, isExpired: true }))}
-          isAdmin={accessStatus.isAdmin}
-        />
-      )}
 
       {/* 1. Left Slim Navigation Rail / Mobile Drawer */}
       <Sidebar 
@@ -357,7 +257,6 @@ export default function App() {
           onMenuClick={() => setMobileMenuOpen(prev => !prev)} 
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
-          onOpenAdmin={() => setIsAdminPanelOpen(true)}
         />
 
 
@@ -566,11 +465,7 @@ export default function App() {
         />
       )}
 
-      {/* Share Modal Dialog */}
-      <ShareModal 
-        isOpen={isShareModalOpen} 
-        onClose={() => setIsShareModalOpen(false)} 
-      />
+
     </div>
   );
 }
